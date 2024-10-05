@@ -66,7 +66,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 7831429195144221124}
-  - {fileID: 3255667520331069750}
+  - {fileID: 3831516400710283841}
   - {fileID: 5979782011318732678}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -171,7 +171,7 @@ Transform:
   m_Children: []
   m_Father: {fileID: 6593684917869658716}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1001 &1788263840825678004
+--- !u!1001 &59395604750554051
 PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
@@ -221,17 +221,17 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6590614273864967894, guid: 5fdbf35e825f62046b47034936bb2942, type: 3}
       propertyPath: m_Name
-      value: Mesh
+      value: PidgeonMesh
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 5fdbf35e825f62046b47034936bb2942, type: 3}
---- !u!4 &3255667520331069750 stripped
+--- !u!4 &3831516400710283841 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 3890903513157017986, guid: 5fdbf35e825f62046b47034936bb2942, type: 3}
-  m_PrefabInstance: {fileID: 1788263840825678004}
+  m_PrefabInstance: {fileID: 59395604750554051}
   m_PrefabAsset: {fileID: 0}
 --- !u!1001 &4178479469453539379
 PrefabInstance:
