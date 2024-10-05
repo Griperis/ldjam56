@@ -15,6 +15,8 @@ public class PidgeonController : MonoBehaviour
     public GameObject warningObject;
     public float forwardCollisionWarningDistance = 10.0f;
 
+    public Animator animator;
+
     Vector3 direction = Vector3.forward;
     float lastShit = 0.0f;
 
@@ -67,6 +69,9 @@ public class PidgeonController : MonoBehaviour
         {
             Shit();
         }
+        // TODO: Flapping speed can be based on actual speed
+        animator.SetFloat("flappingSpeed", 1.5f);
+        animator.SetBool("steering", Mathf.Abs(rb.angularVelocity.y) > 2.0f);
     }
 
     private void FixedUpdate()
