@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class ShittableComponent : MonoBehaviour
 {
-    public int score = 0;
+    public int score = 10;
     public int shitHitLimit = 1;
 
     ScoreManager scoreManager;

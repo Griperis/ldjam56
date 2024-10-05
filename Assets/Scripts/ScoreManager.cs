@@ -10,7 +10,10 @@ public class ScoreManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        
+        if (inGameUi == null) 
+        {
+            Debug.LogError("Reference to UI not set in ScoreManager!");
+        }
     }
 
     // Update is called once per frame
