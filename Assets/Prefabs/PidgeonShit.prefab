@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 7237637441940500279}
   - component: {fileID: 3218871560049588293}
   - component: {fileID: 7765547487515680202}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: PidgeonShit
   m_TagString: Untagged
   m_Icon: {fileID: 0}

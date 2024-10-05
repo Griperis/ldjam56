@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class ScoreManager : MonoBehaviour
 {
+    public SimpleRuntimeUI inGameUi;
     int totalScore = 0;
 
     // Start is called before the first frame update
@@ -21,6 +22,12 @@ public class ScoreManager : MonoBehaviour
     public void AddScore(int inScore) 
     {
         totalScore += inScore;
+
+        if (inGameUi != null)
+        {
+            inGameUi.SetScore(totalScore);
+        }
+
         Debug.LogFormat("Score is {0}", totalScore);
     }
 
