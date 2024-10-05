@@ -5,6 +5,7 @@ public class SimpleRuntimeUI : MonoBehaviour
 {
     private GameManager manager;
     private Label scoreLabel;
+    private Label timeLabel;
     private VisualElement endScreen;
     private Button menuButton;
     private Button restartButton;
@@ -22,6 +23,7 @@ public class SimpleRuntimeUI : MonoBehaviour
         var uiDocument = GetComponent<UIDocument>();
 
         scoreLabel = uiDocument.rootVisualElement.Q<Label>("ScoreDisplay");
+        timeLabel = uiDocument.rootVisualElement.Q<Label>("TimerDisplay");
         endScreen = uiDocument.rootVisualElement.Q("EndScreenOverlay");
 
         menuButton = uiDocument.rootVisualElement.Q<Button>("Menu");
@@ -52,5 +54,9 @@ public class SimpleRuntimeUI : MonoBehaviour
     public void SetScore(int inScore)
     {
         scoreLabel.text = "Score: " + inScore.ToString();
+    }
+    public void SetRemainingTimeSeconds(float inTimeLeft)
+    {
+        timeLabel.text = "Time left: " + inTimeLeft.ToString("F0") + "s";
     }
 }

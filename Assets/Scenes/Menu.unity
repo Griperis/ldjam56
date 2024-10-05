@@ -1365,6 +1365,10 @@ PrefabInstance:
       propertyPath: mainMenuUi
       value: 
       objectReference: {fileID: 0}
+    - target: {fileID: 4319008046525699304, guid: 9e648c7add2e9a94dabe99e75789a0a7, type: 3}
+      propertyPath: gameTimeLimit
+      value: 60
+      objectReference: {fileID: 0}
     - target: {fileID: 6068838346480722193, guid: 9e648c7add2e9a94dabe99e75789a0a7, type: 3}
       propertyPath: m_IsActive
       value: 0
