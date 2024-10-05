@@ -38,12 +38,14 @@ public class PidgeonController : MonoBehaviour
 
     private Rigidbody rb;
     private GameManager gameManager;
+    private GameObject mesh;
 
     private void Awake()
     {
         rb = GetComponent<Rigidbody>();
         gameManager = FindObjectOfType<GameManager>();
         warningObject.SetActive(false);
+        mesh = animator.gameObject.transform.parent.gameObject;
     }
 
     void Start()
@@ -71,7 +73,12 @@ public class PidgeonController : MonoBehaviour
         }
         // TODO: Flapping speed can be based on actual speed
         animator.SetFloat("flappingSpeed", 1.5f);
-        animator.SetBool("steering", Mathf.Abs(rb.angularVelocity.y) > 2.0f);
+        animator.SetBool("steering", Mathf.Abs(rb.angularVelocity.y) > 0.5f);
+        mesh.transform.localRotation = Quaternion.Euler(
+            mesh.transform.localRotation.x,
+            mesh.transform.localRotation.y,
+            rb.angularVelocity.y * -20.0f
+        );
     }
 
     private void FixedUpdate()

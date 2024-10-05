@@ -91,8 +91,8 @@ MonoBehaviour:
   warningObject: {fileID: 3117022737510277169}
   forwardCollisionWarningDistance: 10
   animator: {fileID: 5446015463719447317}
-  maxThrust: 7000
-  responsivness: 10
+  maxThrust: 800
+  responsivness: 30
 --- !u!54 &7569191167076745521
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -101,9 +101,9 @@ Rigidbody:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8697763453007654878}
   serializedVersion: 4
-  m_Mass: 400
-  m_Drag: 1
-  m_AngularDrag: 1
+  m_Mass: 3
+  m_Drag: 10
+  m_AngularDrag: 5
   m_CenterOfMass: {x: 0, y: 0, z: 0}
   m_InertiaTensor: {x: 1, y: 1, z: 1}
   m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
@@ -139,8 +139,8 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 1, y: 1, z: 1}
-  m_Center: {x: 0, y: 0, z: 0}
+  m_Size: {x: 0.96250117, y: 0.73460245, z: 1.1724422}
+  m_Center: {x: -0.0861935, y: -0.13269871, z: -0.25735378}
 --- !u!1 &9060412353519325485
 GameObject:
   m_ObjectHideFlags: 0
