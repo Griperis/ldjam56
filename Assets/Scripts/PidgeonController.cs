@@ -6,7 +6,9 @@ public class PidgeonController : MonoBehaviour
 {    
     public float speed = 20.0f;
     public float rotationSpeed = 5.0f;
+
     public float shitCooldown = 1.0f;
+    public float shitForce = 100.0f;
 
     Vector3 direction = Vector3.forward;
     float lastShit = 0.0f;
@@ -44,6 +46,7 @@ public class PidgeonController : MonoBehaviour
     {
         var instance = Instantiate(shitObject);
         instance.transform.position = shitOrigin.position;
+        instance.GetComponent<Rigidbody>().AddForce(-transform.up * shitForce);
         lastShit = Time.time;
     }
 
