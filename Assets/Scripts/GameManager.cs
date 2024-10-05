@@ -17,6 +17,9 @@ public class GameManager : MonoBehaviour
     private ScoreManager scoreManager;
     private GameState gameState;
 
+    public float gameTimeLimit = 60.0f;
+    float elapsedTime = 0.0f;
+
     private void Awake()
     {
         scoreManager = GetComponent<ScoreManager>();
@@ -27,11 +30,33 @@ public class GameManager : MonoBehaviour
         DontDestroyOnLoad(gameObject);
     }
 
+    void Update()
+    {
+        if (gameState == GameState.InGame) 
+        {
+            if (elapsedTime < gameTimeLimit)
+            {
+                elapsedTime += Time.deltaTime;
+                inGameUi.SetRemainingTimeSeconds(gameTimeLimit - elapsedTime);
+            }
+            else 
+            {
+                FinishGame();
+            }
+        }
+    }
+
+    public void ResetElapsedTime()
+    {
+        elapsedTime = 0.0f;
+    }
+
     public void EnterGame()
     {
         gameState = GameState.InGame;
         inGameUi.gameObject.SetActive(true);
         SceneManager.LoadScene("SimplePoly City - Low Poly Assets_Demo Scene");
+        Debug.Log("Sport");
     }
 
     public void RestartGame()
@@ -39,6 +64,7 @@ public class GameManager : MonoBehaviour
         gameState = GameState.InGame;
         inGameUi.ToggleEndScreen(false);
         scoreManager.ResetScore();
+        ResetElapsedTime();
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
 
