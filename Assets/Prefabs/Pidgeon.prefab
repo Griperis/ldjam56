@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 3415771489226622077}
   - component: {fileID: 3549609731873369089}
   - component: {fileID: 177429512066848364}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: w (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -119,7 +119,7 @@ GameObject:
   - component: {fileID: 6888387588283075805}
   - component: {fileID: 1079624834798296353}
   - component: {fileID: 3212090558979339891}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Capsule (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -226,7 +226,7 @@ GameObject:
   - component: {fileID: 6659286054865669234}
   - component: {fileID: 7066539230024119103}
   - component: {fileID: 6654773624709815871}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Capsule
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -333,7 +333,7 @@ GameObject:
   - component: {fileID: 2379213845542546385}
   - component: {fileID: 422935505581906669}
   - component: {fileID: 8777481174367163348}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: w
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -437,7 +437,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3255667520331069750}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Mesh
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -479,7 +479,7 @@ GameObject:
   - component: {fileID: 508570055884343203}
   - component: {fileID: 6866268208997086465}
   - component: {fileID: 7513590889771954095}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Capsule (5)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -586,7 +586,7 @@ GameObject:
   - component: {fileID: 5195266849098917683}
   - component: {fileID: 1249994691159548742}
   - component: {fileID: 249418677990866261}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Capsule (3)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -693,7 +693,7 @@ GameObject:
   - component: {fileID: 3713679547383512655}
   - component: {fileID: 4541233045815651713}
   - component: {fileID: 8426974076485056401}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Capsule (4)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -800,7 +800,7 @@ GameObject:
   - component: {fileID: 2367730258764517640}
   - component: {fileID: 7569191167076745521}
   - component: {fileID: 1563590468114685968}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Pidgeon
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -904,7 +904,7 @@ GameObject:
   - component: {fileID: 5551001125469883602}
   - component: {fileID: 7256628968887175060}
   - component: {fileID: 1200300405796165511}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Capsule (2)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1008,7 +1008,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7831429195144221124}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: ShitOrigin
   m_TagString: Untagged
   m_Icon: {fileID: 0}
