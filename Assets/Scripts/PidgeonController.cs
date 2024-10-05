@@ -10,11 +10,14 @@ public class PidgeonController : MonoBehaviour
     public float shitCooldown = 1.0f;
     public float shitForce = 100.0f;
 
+    public GameObject shitObject;
+    public Transform shitOrigin;
+    public GameObject warningObject;
+    public float forwardCollisionWarningDistance = 10.0f;
+
     Vector3 direction = Vector3.forward;
     float lastShit = 0.0f;
 
-    public GameObject shitObject;
-    public Transform shitOrigin;
 
 
     // https://www.youtube.com/watch?v=fThb5M2OBJ8
@@ -38,7 +41,9 @@ public class PidgeonController : MonoBehaviour
     {
         rb = GetComponent<Rigidbody>();
         gameManager = FindObjectOfType<GameManager>();
+        warningObject.SetActive(false);
     }
+
     void Start()
     {
         isAlive = true;
@@ -67,7 +72,6 @@ public class PidgeonController : MonoBehaviour
         {
             Shit();
         }
-
     }
 
     private void FixedUpdate()
@@ -76,8 +80,23 @@ public class PidgeonController : MonoBehaviour
 
         rb.AddForce(transform.forward * maxThrust);
         rb.AddTorque(transform.up * yaw * responseModifier);
+
+        CheckForwardCollision();
     }
 
+
+    private void CheckForwardCollision()
+    {
+        bool left = Physics.Raycast(transform.position - new Vector3(0.0f, 2.0f, 0.0f), transform.forward - 0.5f * transform.right, forwardCollisionWarningDistance);
+        bool middle = Physics.Raycast(transform.position - new Vector3(0.0f, 2.0f, 0.0f), transform.forward, forwardCollisionWarningDistance);
+        bool right = Physics.Raycast(transform.position - new Vector3(0.0f, 2.0f, 0.0f), transform.forward + 0.5f * transform.right, forwardCollisionWarningDistance);
+        ToggleWarning(left || middle || right);
+    }
+
+    private void ToggleWarning(bool toggle)
+    {
+        warningObject.SetActive(toggle);
+    }
 
     private void Shit()
     {
