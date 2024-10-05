@@ -465,9 +465,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c6115d8859e07c04ea5458db7bee3df3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  score: 0
+  score: 10
   shitHitLimit: 1
-  shitCollider: {fileID: 4054109391971100317}
 --- !u!65 &4054109391971100317
 BoxCollider:
   m_ObjectHideFlags: 0

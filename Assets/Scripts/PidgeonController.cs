@@ -31,11 +31,13 @@ public class PidgeonController : MonoBehaviour
     private float yaw;
     private bool isAlive;
 
-    Rigidbody rb;
+    private Rigidbody rb;
+    private GameManager gameManager;
 
     private void Awake()
     {
         rb = GetComponent<Rigidbody>();
+        gameManager = FindObjectOfType<GameManager>();
     }
     void Start()
     {
@@ -53,14 +55,19 @@ public class PidgeonController : MonoBehaviour
 
     void Update()
     {
-        if (!isAlive) return;
+        if (Input.GetKeyDown(KeyCode.R))
+        {
+            gameManager.RestartGame();
+        }
 
+        if (!isAlive) return;
 
         yaw = Input.GetAxis("Horizontal");
         if (Input.GetKeyDown(KeyCode.Space) && CanShit())
         {
             Shit();
         }
+
     }
 
     private void FixedUpdate()
@@ -93,5 +100,6 @@ public class PidgeonController : MonoBehaviour
         rb.useGravity = true;
         rb.constraints = RigidbodyConstraints.None;
         isAlive = false;
+        gameManager.FinishGame();
     }
 }

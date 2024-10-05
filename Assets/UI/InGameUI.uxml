@@ -1,3 +1,7 @@
 <ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" xsi="http://www.w3.org/2001/XMLSchema-instance" engine="UnityEngine.UIElements" editor="UnityEditor.UIElements" noNamespaceSchemaLocation="../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
     <ui:Label tabindex="-1" text="Score: XXX" parse-escape-sequences="true" display-tooltip-when-elided="true" name="ScoreDisplay" enable-rich-text="false" style="right: 0; -unity-font-style: bold; color: rgb(255, 255, 255); -unity-text-align: upper-right; font-size: 32px;" />
+    <ui:VisualElement name="EndScreenOverlay" style="flex-grow: 1; color: rgb(255, 255, 255); -unity-font-style: bold; align-items: center; justify-content: space-around; align-self: center; display: flex; visibility: visible; position: absolute; top: 40%;">
+        <ui:Label tabindex="-1" text="YOU DIED" parse-escape-sequences="true" display-tooltip-when-elided="true" name="Label" style="position: relative; -unity-text-align: upper-right; font-size: 50px;" />
+    </ui:VisualElement>
+    <ui:Label tabindex="-1" text="R - Restart" parse-escape-sequences="true" display-tooltip-when-elided="true" name="ScoreDisplay" enable-rich-text="false" style="right: auto; -unity-font-style: bold; color: rgb(255, 255, 255); -unity-text-align: upper-right; font-size: 14px; position: absolute; top: auto; bottom: 1px; left: 1px;" />
 </ui:UXML>
