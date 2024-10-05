@@ -59,6 +59,7 @@ public class PidgeonController : MonoBehaviour
 
     private void OnCollisionEnter(Collision collision)
     {
+        rb.AddForce(collision.impulse.normalized * 20.0f);
         Die();
     }
 
@@ -94,9 +95,9 @@ public class PidgeonController : MonoBehaviour
 
     private void CheckForwardCollision()
     {
-        bool left = Physics.Raycast(transform.position - new Vector3(0.0f, 2.0f, 0.0f), transform.forward - 0.5f * transform.right, forwardCollisionWarningDistance);
-        bool middle = Physics.Raycast(transform.position - new Vector3(0.0f, 2.0f, 0.0f), transform.forward, forwardCollisionWarningDistance);
-        bool right = Physics.Raycast(transform.position - new Vector3(0.0f, 2.0f, 0.0f), transform.forward + 0.5f * transform.right, forwardCollisionWarningDistance);
+        bool left = Physics.Raycast(transform.position - new Vector3(0.0f, 0.5f, 0.0f), transform.forward - 0.5f * transform.right, forwardCollisionWarningDistance);
+        bool middle = Physics.Raycast(transform.position - new Vector3(0.0f, 0.5f, 0.0f), transform.forward, forwardCollisionWarningDistance);
+        bool right = Physics.Raycast(transform.position - new Vector3(0.0f, 0.5f, 0.0f), transform.forward + 0.5f * transform.right, forwardCollisionWarningDistance);
         ToggleWarning(left || middle || right);
     }
 
@@ -126,6 +127,9 @@ public class PidgeonController : MonoBehaviour
         rb.useGravity = true;
         rb.constraints = RigidbodyConstraints.None;
         isAlive = false;
+        rb.drag = 0.0f;
+        rb.angularDrag = 0.0f;
+        animator.SetFloat("flappingSpeed", 0.0f);
         gameManager.FinishGame();
     }
 }
