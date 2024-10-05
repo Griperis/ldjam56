@@ -16,11 +16,15 @@ public class GameManager : MonoBehaviour
 
     private GameState gameState;
 
-
+    private void Awake()
+    {
+        DontDestroyOnLoad(gameObject);
+    }
     public void EnterGame()
     {
         gameState = GameState.InGame;
-        // TODO: Loads the game level from the menu
+        inGameUi.gameObject.SetActive(true);
+        SceneManager.LoadScene("SimplePoly City - Low Poly Assets_Demo Scene");
     }
 
     public void RestartGame()
@@ -33,7 +37,8 @@ public class GameManager : MonoBehaviour
     public void EnterMenu()
     {
         gameState = GameState.Menu;
-        // TODO: changes the scene to the menu level
+        inGameUi.gameObject.SetActive(false);
+        SceneManager.LoadScene("Menu");
     }
 
     public void FinishGame()

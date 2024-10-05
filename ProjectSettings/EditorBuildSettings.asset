@@ -4,5 +4,15 @@
 EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
-  m_Scenes: []
+  m_Scenes:
+  - enabled: 1
+    path: Assets/Scenes/Menu.unity
+    guid: d0d542d0d1bb2bf41bacd641fd30b767
+  - enabled: 1
+    path: Assets/Scenes/BriskTestScene.unity
+    guid: 735ac48a891d4994aa0664fdf9d07adf
+  - enabled: 1
+    path: Assets/SimplePoly City - Low Poly Assets/Demo/SimplePoly City - Low Poly
+      Assets_Demo Scene.unity
+    guid: 7e6d3f4e5d896154ab4438845532ac3e
   m_configObjects: {}
