@@ -7702,6 +7702,18 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 2367730258764517640, guid: 3d18d97e890634443b50f031e4d4a193, type: 3}
+      propertyPath: lift
+      value: 135
+      objectReference: {fileID: 0}
+    - target: {fileID: 2367730258764517640, guid: 3d18d97e890634443b50f031e4d4a193, type: 3}
+      propertyPath: maxThrust
+      value: 5000
+      objectReference: {fileID: 0}
+    - target: {fileID: 2367730258764517640, guid: 3d18d97e890634443b50f031e4d4a193, type: 3}
+      propertyPath: throttleIncrement
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 6593684917869658716, guid: 3d18d97e890634443b50f031e4d4a193, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -7740,6 +7752,10 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6593684917869658716, guid: 3d18d97e890634443b50f031e4d4a193, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7569191167076745521, guid: 3d18d97e890634443b50f031e4d4a193, type: 3}
+      propertyPath: m_UseGravity
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8697763453007654878, guid: 3d18d97e890634443b50f031e4d4a193, type: 3}

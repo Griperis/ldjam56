@@ -16,31 +16,61 @@ public class PidgeonController : MonoBehaviour
     public GameObject shitObject;
     public Transform shitOrigin;
 
+
+    // https://www.youtube.com/watch?v=fThb5M2OBJ8
+    public float maxThrust = 500f;
+    public float responsivness = 10f;
+
+    private float responseModifier
+    {
+        get
+        {
+            return (rb.mass / 10f) * responsivness;
+        }
+    }
+    private float yaw;
+    private bool isAlive;
+
+    Rigidbody rb;
+
+    private void Awake()
+    {
+        rb = GetComponent<Rigidbody>();
+    }
     void Start()
     {
+        isAlive = true;
         if (shitObject == null)
         {
             Debug.LogError("No shit object was assigned!");
         }
     }
 
+    private void OnCollisionEnter(Collision collision)
+    {
+        Die();
+    }
+
     void Update()
     {
-        transform.Translate(direction * (speed * Time.deltaTime));
-        if (Input.GetKey(KeyCode.A))
-        {
-            transform.Rotate(new Vector3(transform.rotation.x, (transform.rotation.y - rotationSpeed) * Time.deltaTime, transform.rotation.z));
-        }
-        if (Input.GetKey(KeyCode.D))
-        {
-            transform.Rotate(new Vector3(transform.rotation.x, (transform.rotation.y + rotationSpeed) * Time.deltaTime, transform.rotation.z));
+        if (!isAlive) return;
 
-        }
+
+        yaw = Input.GetAxis("Horizontal");
         if (Input.GetKeyDown(KeyCode.Space) && CanShit())
         {
             Shit();
         }
     }
+
+    private void FixedUpdate()
+    {
+        if (!isAlive) return;
+
+        rb.AddForce(transform.forward * maxThrust);
+        rb.AddTorque(transform.up * yaw * responseModifier);
+    }
+
 
     private void Shit()
     {
@@ -54,5 +84,14 @@ public class PidgeonController : MonoBehaviour
     {
         //Debug.Log($"lastShit: {lastShit}; nextShit: {lastShit + shitCooldown}; time: {Time.time}");
         return lastShit + shitCooldown < Time.time;
+    }
+
+    private void Die()
+    {
+        // already dead
+        if (!isAlive) return;
+        rb.useGravity = true;
+        rb.constraints = RigidbodyConstraints.None;
+        isAlive = false;
     }
 }

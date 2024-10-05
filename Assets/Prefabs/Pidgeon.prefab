@@ -798,6 +798,8 @@ GameObject:
   m_Component:
   - component: {fileID: 6593684917869658716}
   - component: {fileID: 2367730258764517640}
+  - component: {fileID: 7569191167076745521}
+  - component: {fileID: 1563590468114685968}
   m_Layer: 0
   m_Name: Pidgeon
   m_TagString: Untagged
@@ -840,6 +842,56 @@ MonoBehaviour:
   shitForce: 800
   shitObject: {fileID: 3309167901627036857, guid: 985b27a5eb2807f468e8757b94c7517d, type: 3}
   shitOrigin: {fileID: 7831429195144221124}
+  maxThrust: 200
+  responsivness: 10
+--- !u!54 &7569191167076745521
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8697763453007654878}
+  serializedVersion: 4
+  m_Mass: 400
+  m_Drag: 1
+  m_AngularDrag: 1
+  m_CenterOfMass: {x: 0, y: 0, z: 0}
+  m_InertiaTensor: {x: 1, y: 1, z: 1}
+  m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ImplicitCom: 1
+  m_ImplicitTensor: 1
+  m_UseGravity: 1
+  m_IsKinematic: 0
+  m_Interpolate: 0
+  m_Constraints: 4
+  m_CollisionDetection: 0
+--- !u!65 &1563590468114685968
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8697763453007654878}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 1, y: 1, z: 1}
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &8860541523980424618
 GameObject:
   m_ObjectHideFlags: 0
