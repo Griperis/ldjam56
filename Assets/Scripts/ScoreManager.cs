@@ -21,6 +21,7 @@ public class ScoreManager : MonoBehaviour
     public void AddScore(int inScore) 
     {
         totalScore += inScore;
+        Debug.LogFormat("Score is {0}", totalScore);
     }
 
     int GetScore() 

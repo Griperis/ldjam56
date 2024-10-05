@@ -5,6 +5,7 @@ using UnityEngine;
 public class ShittableComponent : MonoBehaviour
 {
     public int score = 0;
+    public int shitHitLimit = 1;
 
     ScoreManager scoreManager;
 
@@ -24,11 +25,15 @@ public class ShittableComponent : MonoBehaviour
             Debug.LogError("Score manager not found!");
         }
     }
-
-    // Update is called once per frame
-    void Update()
+    private void OnTriggerEnter(Collider other)
     {
-        
+        if (shitHitLimit == 0)
+        {
+            return;
+        }
+
+        HandleHit();
+        shitHitLimit--;
     }
 
     void HandleHit() 
