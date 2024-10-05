@@ -60,11 +60,6 @@ public class PidgeonController : MonoBehaviour
 
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.R))
-        {
-            gameManager.RestartGame();
-        }
-
         if (!isAlive) return;
 
         yaw = Input.GetAxis("Horizontal");

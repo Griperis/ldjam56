@@ -14,12 +14,19 @@ public class GameManager : MonoBehaviour
 {
     public SimpleRuntimeUI inGameUi;
 
+    private ScoreManager scoreManager;
     private GameState gameState;
 
     private void Awake()
     {
+        scoreManager = GetComponent<ScoreManager>();
+        if (scoreManager == null)
+        {
+            throw new MissingComponentException("Score manager not found in the scene!");
+        }
         DontDestroyOnLoad(gameObject);
     }
+
     public void EnterGame()
     {
         gameState = GameState.InGame;
@@ -31,6 +38,7 @@ public class GameManager : MonoBehaviour
     {
         gameState = GameState.InGame;
         inGameUi.ToggleEndScreen(false);
+        scoreManager.ResetScore();
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
 

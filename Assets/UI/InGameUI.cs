@@ -6,6 +6,8 @@ public class SimpleRuntimeUI : MonoBehaviour
     private GameManager manager;
     private Label scoreLabel;
     private VisualElement endScreen;
+    private Button menuButton;
+    private Button restartButton;
 
 
     private void Awake()
@@ -19,8 +21,20 @@ public class SimpleRuntimeUI : MonoBehaviour
         // The UXML is already instantiated by the UIDocument component
         var uiDocument = GetComponent<UIDocument>();
 
-        scoreLabel = uiDocument.rootVisualElement.Q("ScoreDisplay") as Label;
+        scoreLabel = uiDocument.rootVisualElement.Q<Label>("ScoreDisplay");
         endScreen = uiDocument.rootVisualElement.Q("EndScreenOverlay");
+
+        menuButton = uiDocument.rootVisualElement.Q<Button>("Menu");
+        restartButton = uiDocument.rootVisualElement.Q<Button>("Restart");
+
+        restartButton.clicked += () =>
+        {
+            manager.RestartGame();
+        };
+        menuButton.clicked += () =>
+        {
+            manager.EnterMenu();
+        };
 
         ToggleEndScreen(false);
         SetScore(0);

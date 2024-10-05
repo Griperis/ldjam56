@@ -34,6 +34,12 @@ public class ScoreManager : MonoBehaviour
         Debug.LogFormat("Score is {0}", totalScore);
     }
 
+    public void ResetScore()
+    {
+        totalScore = 0;
+        inGameUi.SetScore(totalScore);
+    }
+
     int GetScore() 
     {
         return totalScore;
