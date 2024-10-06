@@ -81,6 +81,7 @@ public class GameManager : MonoBehaviour
     {
         gameState = GameState.GameEnd;
         inGameUi.ToggleWinScreen(true);
+        Time.timeScale = 0;
         // TODO: Finishes the game, displays high score
     }
 

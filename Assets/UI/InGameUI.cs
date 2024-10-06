@@ -1,5 +1,6 @@
 using UnityEngine;
 using UnityEngine.UIElements;
+using System.Collections.Generic;
 
 public class SimpleRuntimeUI : MonoBehaviour
 {
@@ -10,7 +11,12 @@ public class SimpleRuntimeUI : MonoBehaviour
     private VisualElement winScreen;
     private Button menuButton;
     private Button restartButton;
+    private Button winMenuButton;
+    private Button winRestartButton;
 
+
+    private LeaderboardListViewController leaderboardController;
+    public VisualTreeAsset listEntryTemplate;
 
     private void Awake()
     {
@@ -30,6 +36,8 @@ public class SimpleRuntimeUI : MonoBehaviour
 
         menuButton = uiDocument.rootVisualElement.Q<Button>("Menu");
         restartButton = uiDocument.rootVisualElement.Q<Button>("Restart");
+        winMenuButton = uiDocument.rootVisualElement.Q<Button>("WinMenu");
+        winRestartButton = uiDocument.rootVisualElement.Q<Button>("WinRestart");
 
         restartButton.clicked += () =>
         {
@@ -40,6 +48,19 @@ public class SimpleRuntimeUI : MonoBehaviour
             manager.EnterMenu();
         };
 
+        winRestartButton.clicked += () =>
+        {
+            Time.timeScale = 1;
+            manager.RestartGame();
+        };
+        winMenuButton.clicked += () =>
+        {
+            Time.timeScale = 1;
+            manager.EnterMenu();
+        };
+
+        leaderboardController = new LeaderboardListViewController();
+        
         HideAllOverlays();
         SetScore(0);
     }
@@ -52,6 +73,7 @@ public class SimpleRuntimeUI : MonoBehaviour
     public void ToggleWinScreen(bool toggle)
     {
         winScreen.visible = toggle;
+        leaderboardController.InitializeLeaderboardList(GetComponent<UIDocument>().rootVisualElement, listEntryTemplate);
     }
 
     public void HideAllOverlays()

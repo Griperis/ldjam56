@@ -39,6 +39,7 @@
 
 .overlay-title {
     font-size: 69px;
+    color: var(--primary_color);
 }
 
 .overlay-button {
@@ -48,6 +49,7 @@
     border-right-color: rgba(0, 0, 0, 0);
     border-top-color: rgba(0, 0, 0, 0);
     border-bottom-color: rgba(0, 0, 0, 0);
+    overflow: visible;
 }
 
 .overlay-button:hover {
@@ -82,4 +84,29 @@
     border-top-right-radius: 32px;
     border-bottom-right-radius: 32px;
     border-bottom-left-radius: 32px;
+}
+
+.overlay-general-label {
+    font-size: 50px;
+}
+
+.overlay-text-field {
+    font-size: 50px;
+    flex-direction: column;
+    flex-grow: 0;
+    flex-shrink: 0;
+}
+
+.overlay-text-field > .unity-label {
+}
+
+.overlay-text-field > #unity-text-input {
+    background-color: black;
+    border-width: 0;
+    border-radius: 8px;
+}
+
+.leaderboard-item {
+    color: rgb(255, 255, 255);
+    font-size: 32px;
 }
