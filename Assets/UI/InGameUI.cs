@@ -24,7 +24,7 @@ public class SimpleRuntimeUI : MonoBehaviour
         var uiDocument = GetComponent<UIDocument>();
 
         scoreLabel = uiDocument.rootVisualElement.Q<VisualElement>("GameplayLabels").Q<Label>("ScoreDisplay");
-        timeLabel = uiDocument.rootVisualElement.Q<VisualElement>("GameplayLabels").Q<Label>("TimerDisplay");
+        timeLabel = uiDocument.rootVisualElement.Q<Label>("TimerDisplay");
         endScreen = uiDocument.rootVisualElement.Q("EndScreenOverlay");
         winScreen = uiDocument.rootVisualElement.Q("WinScreenOverlay");
 
@@ -42,10 +42,6 @@ public class SimpleRuntimeUI : MonoBehaviour
 
         HideAllOverlays();
         SetScore(0);
-    }
-
-    private void OnDisable()
-    {
     }
 
     public void ToggleEndScreen(bool toggle)

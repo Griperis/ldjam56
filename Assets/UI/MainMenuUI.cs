@@ -1,17 +1,11 @@
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UIElements;
 
 public class MainMenuUI : MonoBehaviour
 {
-    private GameManager manager;
-
     private Button startButton;
     private Button exitButton;
-
-    private void Awake()
-    {
-        manager = FindObjectOfType<GameManager>();
-    }
 
     //Add logic that interacts with the UI controls in the `OnEnable` methods
     private void OnEnable()
@@ -31,12 +25,13 @@ public class MainMenuUI : MonoBehaviour
 
     private void StartButtonClicked()
     {
-        manager.EnterGame();
+        EnterGame();
     }
 
-    private void OnDisable()
+    public void EnterGame()
     {
+        SceneManager.LoadScene("SimplePoly City - Low Poly Assets_Demo Scene");
+        Debug.Log("Sport");
     }
-
 
 }

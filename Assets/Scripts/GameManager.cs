@@ -5,7 +5,6 @@ using UnityEngine.SceneManagement;
 
 public enum GameState
 {
-    Menu,
     InGame,
     GameEnd
 }
@@ -30,7 +29,6 @@ public class GameManager : MonoBehaviour
         {
             throw new MissingComponentException("Score manager not found in the scene!");
         }
-        DontDestroyOnLoad(gameObject);
     }
 
     void Update()
@@ -63,29 +61,14 @@ public class GameManager : MonoBehaviour
         timeLowSet = false;
     }
 
-    public void EnterGame()
-    {
-        gameState = GameState.InGame;
-        inGameUi.gameObject.SetActive(true);
-        inGameUi.HideAllOverlays();
-        ResetElapsedTime();
-        SceneManager.LoadScene("SimplePoly City - Low Poly Assets_Demo Scene");
-        Debug.Log("Sport");
-    }
-
     public void RestartGame()
     {
         gameState = GameState.InGame;
-        inGameUi.HideAllOverlays();
-        scoreManager.ResetScore();
-        ResetElapsedTime();
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
 
     public void EnterMenu()
     {
-        gameState = GameState.Menu;
-        inGameUi.gameObject.SetActive(false);
         SceneManager.LoadScene("Menu");
     }
 
