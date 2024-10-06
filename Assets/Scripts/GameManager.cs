@@ -33,6 +33,12 @@ public class GameManager : MonoBehaviour
 
     void Update()
     {
+        if (gameState == GameState.InGame && Input.GetKeyDown(KeyCode.Escape))
+        {
+            inGameUi.TogglePauseScreen();
+        }
+
+
         if (gameState == GameState.InGame) 
         {
             if (elapsedTime < gameTimeLimit)
@@ -45,7 +51,6 @@ public class GameManager : MonoBehaviour
                     inGameUi.SetRemainingTimeLow(true);
                     timeLowSet = true;
                 }
-
             }
             else 
             {

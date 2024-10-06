@@ -10,11 +10,15 @@ public class SimpleRuntimeUI : MonoBehaviour
     private Label timeLabel;
     private VisualElement endScreen;
     private VisualElement winScreen;
+    private VisualElement pauseScreen;
     private Button menuButton;
     private Button restartButton;
     private Button winMenuButton;
     private Button winRestartButton;
     private Button submitScoreButton;
+    private Button pauseMenuButton;
+    private Button pauseContinueButton;
+
     private TextField PlayerName;
 
     private LeaderboardListViewController leaderboardController;
@@ -45,6 +49,7 @@ public class SimpleRuntimeUI : MonoBehaviour
 
         endScreen = uiDocument.rootVisualElement.Q("EndScreenOverlay");
         winScreen = uiDocument.rootVisualElement.Q("WinScreenOverlay");
+        pauseScreen = uiDocument.rootVisualElement.Q("PauseScreenOverlay");
 
         PlayerName = uiDocument.rootVisualElement.Q<TextField>("PlayerNameTextField");
 
@@ -53,6 +58,8 @@ public class SimpleRuntimeUI : MonoBehaviour
         winMenuButton = uiDocument.rootVisualElement.Q<Button>("WinMenu");
         winRestartButton = uiDocument.rootVisualElement.Q<Button>("WinRestart");
         submitScoreButton = uiDocument.rootVisualElement.Q<Button>("SubmitScoreButton");
+        pauseMenuButton = uiDocument.rootVisualElement.Q<Button>("PauseMenu");
+        pauseContinueButton = uiDocument.rootVisualElement.Q<Button>("PauseContinue");
 
         buttonAudio.AddButtonSounds(uiDocument);
 
@@ -74,6 +81,16 @@ public class SimpleRuntimeUI : MonoBehaviour
         {
             Time.timeScale = 1;
             manager.EnterMenu();
+        };
+
+        pauseMenuButton.clicked += () =>
+        {
+            TogglePauseScreenInternal(false);
+            manager.EnterMenu();
+        };
+        pauseContinueButton.clicked += () =>
+        {
+            TogglePauseScreenInternal(false);
         };
 
         submitScoreButton.clicked += () =>
@@ -103,6 +120,24 @@ public class SimpleRuntimeUI : MonoBehaviour
         endScreen.visible = toggle;
     }
 
+    public void TogglePauseScreen()
+    {
+        if (pauseScreen.visible == true)
+        {
+            TogglePauseScreenInternal(false);
+        }
+        else 
+        {
+            TogglePauseScreenInternal(true);
+        }
+    }
+
+    private void TogglePauseScreenInternal(bool toggle)
+    {
+        pauseScreen.visible = toggle;
+        Time.timeScale = toggle ? 0.0f : 1.0f;
+    }
+
     public void OpenWinOverlay(int inFinalScore, List<LeaderboardDataItem> inData)
     {
         finalScoreCached = inFinalScore;
@@ -120,6 +155,7 @@ public class SimpleRuntimeUI : MonoBehaviour
     {
         endScreen.visible = false;
         winScreen.visible = false;
+        pauseScreen.visible = false;
     }
 
     public void SetScore(int inScore)

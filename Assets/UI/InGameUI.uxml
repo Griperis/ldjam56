@@ -8,7 +8,7 @@
         </ui:VisualElement>
     </ui:VisualElement>
     <ui:VisualElement name="Tasks" style="flex-grow: 1; position: absolute; bottom: 64px; left: 64px; max-height: 300px;">
-        <ui:Label tabindex="-1" text="Task list:" parse-escape-sequences="true" display-tooltip-when-elided="true" class="ingame-label" />
+        <ui:Label tabindex="-1" text="Targets:" parse-escape-sequences="false" display-tooltip-when-elided="false" class="ingame-label" />
         <ui:ListView name="TaskListView" selection-type="None" virtualization-method="DynamicHeight" focusable="false" style="align-items: flex-start;" />
     </ui:VisualElement>
     <ui:VisualElement name="EndScreenOverlay" style="flex-grow: 1; color: rgb(255, 255, 255); -unity-font-style: bold; align-items: center; justify-content: space-around; align-self: center; display: flex; visibility: visible; position: absolute; top: 40%;">
@@ -33,6 +33,14 @@
         <ui:VisualElement style="flex-grow: 0; flex-direction: row; margin-top: 0; padding-top: 0; padding-right: 0; padding-bottom: 0; padding-left: 0; justify-content: space-between; flex-shrink: 0; align-self: center;">
             <ui:Button text="RESTART" parse-escape-sequences="true" display-tooltip-when-elided="true" name="WinRestart" class="overlay-button" />
             <ui:Button text="MENU" parse-escape-sequences="true" display-tooltip-when-elided="true" name="WinMenu" class="overlay-button" style="margin-left: 48px;" />
+        </ui:VisualElement>
+    </ui:VisualElement>
+    <ui:VisualElement name="PauseScreenOverlay" style="flex-grow: 1; color: rgb(255, 255, 255); -unity-font-style: bold; align-items: center; justify-content: space-around; align-self: center; display: flex; visibility: visible; position: absolute; top: 40%;">
+        <ui:VisualElement name="Background" class="overlay-background" />
+        <ui:Label tabindex="-1" text="Game paused" parse-escape-sequences="true" display-tooltip-when-elided="true" name="Label" class="overlay-title" style="position: relative; -unity-text-align: upper-right;" />
+        <ui:VisualElement style="flex-grow: 1; flex-direction: row; margin-top: 32px;">
+            <ui:Button text="MENU" parse-escape-sequences="true" display-tooltip-when-elided="true" name="PauseMenu" class="overlay-button" />
+            <ui:Button text="CONTINUE" parse-escape-sequences="true" display-tooltip-when-elided="true" name="PauseContinue" class="overlay-button" style="margin-left: 48px;" />
         </ui:VisualElement>
     </ui:VisualElement>
 </ui:UXML>
