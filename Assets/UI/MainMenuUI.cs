@@ -7,11 +7,14 @@ public class MainMenuUI : MonoBehaviour
     private Button startButton;
     private Button exitButton;
 
+    public ButtonAudio buttonAudio;
+
     //Add logic that interacts with the UI controls in the `OnEnable` methods
     private void OnEnable()
     {
         // The UXML is already instantiated by the UIDocument component
         var uiDocument = GetComponent<UIDocument>();
+        buttonAudio.AddButtonSounds(uiDocument);
         startButton = uiDocument.rootVisualElement.Q<Button>("Start");
         exitButton = uiDocument.rootVisualElement.Q<Button>("Exit");
         startButton.clicked += StartButtonClicked;

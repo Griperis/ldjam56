@@ -98,6 +98,10 @@ public class Tasker : MonoBehaviour
     public int tasksCompleted = 0;
 
     public List<Task> tasks = new List<Task>();
+
+    [Header("Audio")]
+    public AudioClip taskCompletedClip;
+    
     private Dictionary<string, List<ShittableObject>> shittableObjsByName = new Dictionary<string, List<ShittableObject>>();
     private ScoreManager scoreManager;
     private int tasksCreated = 0;
@@ -197,6 +201,7 @@ public class Tasker : MonoBehaviour
         scoreManager.AddScore(task.Score);
         FloatingTextManager.CreateFloatingText(lastShittableObject.transform, $"+{task.Score} task", outlineColor: task.color);
         GenerateNewTask();
+        AudioManager.PlayAudioClip(taskCompletedClip, lastShittableObject.transform, 1.0f);
     }
 
     private void TaskAdded(Task task)

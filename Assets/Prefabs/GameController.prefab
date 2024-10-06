@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 4319008046525699304}
   - component: {fileID: 4569389695214051840}
   - component: {fileID: 8584430481410775972}
+  - component: {fileID: 6029078638379521179}
   m_Layer: 0
   m_Name: GameController
   m_TagString: GameController
@@ -79,6 +80,7 @@ MonoBehaviour:
   maxConcurrentTasks: 3
   maxObjectsInTask: 3
   tasksCompleted: 0
+  taskCompletedClip: {fileID: 8300000, guid: 19eb28ccee8e26b40b309698e583bec8, type: 3}
 --- !u!114 &8584430481410775972
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -92,6 +94,19 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   floatingTextObject: {fileID: 7593351180446657777, guid: 9d190563fe175084f90de0bfbf306d11, type: 3}
+--- !u!114 &6029078638379521179
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7225005301945682725}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 182c4905643ec1e4aacd28747b75c8c4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  audioSourceObject: {fileID: 5762042329935772207, guid: c062144b985f56a4682b20ceb29faf3b, type: 3}
 --- !u!1001 &3833281701538351923
 PrefabInstance:
   m_ObjectHideFlags: 0

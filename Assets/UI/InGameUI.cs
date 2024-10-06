@@ -19,6 +19,7 @@ public class SimpleRuntimeUI : MonoBehaviour
 
     private LeaderboardListViewController leaderboardController;
     public VisualTreeAsset listEntryTemplate;
+    public ButtonAudio buttonAudio;
 
     private int finalScoreCached;
     private bool canSubmitScore = true;
@@ -47,6 +48,8 @@ public class SimpleRuntimeUI : MonoBehaviour
         winMenuButton = uiDocument.rootVisualElement.Q<Button>("WinMenu");
         winRestartButton = uiDocument.rootVisualElement.Q<Button>("WinRestart");
         submitScoreButton = uiDocument.rootVisualElement.Q<Button>("SubmitScoreButton");
+
+        buttonAudio.AddButtonSounds(uiDocument);
 
         restartButton.clicked += () =>
         {

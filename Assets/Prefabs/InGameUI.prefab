@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 4777426796629961877}
   - component: {fileID: 2458930753879063909}
   - component: {fileID: 320990371959249941}
+  - component: {fileID: 5678006784666545031}
   m_Layer: 5
   m_Name: InGameUI
   m_TagString: Untagged
@@ -62,3 +63,18 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   listEntryTemplate: {fileID: 9197481963319205126, guid: 58f3ce545a1c12e44964c09a912af68e, type: 3}
+  buttonAudio: {fileID: 5678006784666545031}
+--- !u!114 &5678006784666545031
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6992495068597873186}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ef99ebe5e4d3c65488a21781670c22cc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  buttonHoverClip: {fileID: 8300000, guid: 0bdd9a496e66c9f48926bdd60010de60, type: 3}
+  buttonClickClip: {fileID: 8300000, guid: eebbf2d083bce6846a2ca58f8f9b9e9f, type: 3}

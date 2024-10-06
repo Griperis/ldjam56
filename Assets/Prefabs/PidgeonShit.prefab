@@ -151,3 +151,7 @@ MonoBehaviour:
   maxRandomScale: 3
   minRandomRotation: -5
   maxRandomRotation: 5
+  hitSounds:
+  - {fileID: 8300000, guid: 6defcd2653343334bb027824fe0bc5eb, type: 3}
+  - {fileID: 8300000, guid: b6ffd3db1c49fb8409ed37c01defa4c7, type: 3}
+  - {fileID: 8300000, guid: 8e1554a32cd6978468389185b5dfebf3, type: 3}

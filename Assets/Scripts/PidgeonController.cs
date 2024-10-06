@@ -19,6 +19,11 @@ public class PidgeonController : MonoBehaviour
     public float maxThrust = 500f;
     public float responsivness = 10f;
 
+    [Header("Audio")]
+    public AudioClip shitAudio;
+    public AudioClip warningAudio;
+    public AudioClip hitSound;
+
     private float responseModifier
     {
         get
@@ -92,6 +97,10 @@ public class PidgeonController : MonoBehaviour
     private void ToggleWarning(bool toggle)
     {
         warningObject.SetActive(toggle);
+        if (toggle)
+        {
+            AudioManager.PlayAudioClip(warningAudio, transform, 0.3f, warningAudio.length);
+        }
     }
     private void Shit()
     {
@@ -99,6 +108,7 @@ public class PidgeonController : MonoBehaviour
         instance.transform.position = shitOrigin.position;
         instance.GetComponent<Rigidbody>().AddForce(-transform.up * shitForce);
         lastShit = Time.time;
+        AudioManager.PlayAudioClip(shitAudio, transform, 0.5f);
     }
     private bool CanShit()
     {
@@ -115,6 +125,7 @@ public class PidgeonController : MonoBehaviour
         rb.drag = 0.0f;
         rb.angularDrag = 0.0f;
         animator.SetFloat("flappingSpeed", 0.0f);
+        AudioManager.PlayAudioClip(hitSound, transform, 0.75f);
         gameManager.FinishGame();
     }
 }

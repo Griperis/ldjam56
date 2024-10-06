@@ -11,6 +11,8 @@ public class PidgeonShit : MonoBehaviour
     public float minRandomRotation = -5.0f;
     public float maxRandomRotation = 5.0f;
 
+    public AudioClip[] hitSounds;
+
     private void OnCollisionEnter(Collision collision)
     {
         var instance = Instantiate(decalObject);
@@ -23,5 +25,7 @@ public class PidgeonShit : MonoBehaviour
         instance.transform.localEulerAngles = new Vector3(90.0f, rotation, rotation);
 
         Destroy(gameObject);
+
+        AudioManager.PlayRandomAudioClip(hitSounds, transform, 0.2f);
     }
 }

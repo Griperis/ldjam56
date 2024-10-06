@@ -82,17 +82,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 87078f5e90d48a94a959a99cb9694a01, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 15
-  rotationSpeed: 75
   shitCooldown: 0.1
   shitForce: 800
   shitObject: {fileID: 3309167901627036857, guid: 985b27a5eb2807f468e8757b94c7517d, type: 3}
   shitOrigin: {fileID: 7831429195144221124}
   warningObject: {fileID: 3117022737510277169}
-  forwardCollisionWarningDistance: 10
+  forwardCollisionWarningDistance: 15
   animator: {fileID: 5446015463719447317}
   maxThrust: 800
   responsivness: 30
+  shitAudio: {fileID: 8300000, guid: 3a7a49f9d4e699840913490dd2b31960, type: 3}
+  warningAudio: {fileID: 8300000, guid: 686b489aa952eb54c82b0de756bcb09a, type: 3}
+  hitSound: {fileID: 8300000, guid: 95330458b31dbf448967bf16d524a22c, type: 3}
 --- !u!54 &7569191167076745521
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -184,6 +185,10 @@ PrefabInstance:
       propertyPath: m_ApplyRootMotion
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 1255293015159500559, guid: 5fdbf35e825f62046b47034936bb2942, type: 3}
+      propertyPath: flapAudioClip
+      value: 
+      objectReference: {fileID: 8300000, guid: 09a11d732c4993a46915a825a59cbb86, type: 3}
     - target: {fileID: 2751737821090910885, guid: 5fdbf35e825f62046b47034936bb2942, type: 3}
       propertyPath: m_Enabled
       value: 1
