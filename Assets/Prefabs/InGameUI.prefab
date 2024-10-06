@@ -64,6 +64,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   listEntryTemplate: {fileID: 9197481963319205126, guid: 58f3ce545a1c12e44964c09a912af68e, type: 3}
   buttonAudio: {fileID: 5678006784666545031}
+  leaderboardListEntryTemplate: {fileID: 9197481963319205126, guid: 58f3ce545a1c12e44964c09a912af68e, type: 3}
+  taskListEntryTemplate: {fileID: 9197481963319205126, guid: 7cf7911cc52fdbb40a06cc58df7761e8, type: 3}
 --- !u!114 &5678006784666545031
 MonoBehaviour:
   m_ObjectHideFlags: 0

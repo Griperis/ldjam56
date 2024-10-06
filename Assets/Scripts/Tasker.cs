@@ -15,7 +15,7 @@ public class Task
 {
     public string Name {
         get {
-            return $"{progress}/{total} {targetName}";
+            return $"{targetName} {progress}/{total}";
         }
     }
 
@@ -97,13 +97,18 @@ public class Tasker : MonoBehaviour
     public int maxObjectsInTask = 3;
     public int tasksCompleted = 0;
 
+    
+
     public List<Task> tasks = new List<Task>();
 
     [Header("Audio")]
     public AudioClip taskCompletedClip;
     
     private Dictionary<string, List<ShittableObject>> shittableObjsByName = new Dictionary<string, List<ShittableObject>>();
+
     private ScoreManager scoreManager;
+    private SimpleRuntimeUI inGameUi;
+
     private int tasksCreated = 0;
 
     private void Awake()
@@ -112,6 +117,12 @@ public class Tasker : MonoBehaviour
         if (scoreManager == null)
         {
             throw new MissingComponentException("ScoreManager object not found in scene!");
+        }
+
+        inGameUi = FindObjectOfType<SimpleRuntimeUI>();
+        if (scoreManager == null)
+        {
+            throw new MissingComponentException("SimpleRuntimeUI object not found in scene!");
         }
     }
 
@@ -177,6 +188,8 @@ public class Tasker : MonoBehaviour
             TaskCompleted(task, shittableObject);
         }
 
+        inGameUi.UpdateTasks(tasks);
+
     }
     public static string GetObjectSoleName(ShittableObject obj)
     {
@@ -201,12 +214,13 @@ public class Tasker : MonoBehaviour
         scoreManager.AddScore(task.Score);
         FloatingTextManager.CreateFloatingText(lastShittableObject.transform, $"+{task.Score} task", outlineColor: task.color);
         GenerateNewTask();
-        AudioManager.PlayAudioClip(taskCompletedClip, lastShittableObject.transform, 1.0f);
+        AudioManager.PlayAudioClip(taskCompletedClip, lastShittableObject.transform, 0.6f);
     }
 
     private void TaskAdded(Task task)
     {
         Debug.Log($"Added task {task.Name}");
+        inGameUi.UpdateTasks(tasks);
     }
 
     private List<ShittableObject> GetNewTaskTargets()

@@ -20,6 +20,10 @@ public class SimpleRuntimeUI : MonoBehaviour
     private LeaderboardListViewController leaderboardController;
     public VisualTreeAsset listEntryTemplate;
     public ButtonAudio buttonAudio;
+    private TaskListViewController taskViewController;
+
+    public VisualTreeAsset leaderboardListEntryTemplate;
+    public VisualTreeAsset taskListEntryTemplate;
 
     private int finalScoreCached;
     private bool canSubmitScore = true;
@@ -37,9 +41,10 @@ public class SimpleRuntimeUI : MonoBehaviour
 
         scoreLabel = uiDocument.rootVisualElement.Q<VisualElement>("GameplayLabels").Q<Label>("ScoreDisplay");
         timeLabel = uiDocument.rootVisualElement.Q<Label>("TimerDisplay");
+        winOverlayscoreLabel = uiDocument.rootVisualElement.Q<Label>("WinOverlayScoreLabel");
+
         endScreen = uiDocument.rootVisualElement.Q("EndScreenOverlay");
         winScreen = uiDocument.rootVisualElement.Q("WinScreenOverlay");
-        winOverlayscoreLabel = uiDocument.rootVisualElement.Q<Label>("WinOverlayScoreLabel");
 
         PlayerName = uiDocument.rootVisualElement.Q<TextField>("PlayerNameTextField");
 
@@ -85,7 +90,10 @@ public class SimpleRuntimeUI : MonoBehaviour
         };
 
         leaderboardController = new LeaderboardListViewController();
-        
+        taskViewController = new TaskListViewController();
+
+        taskViewController.InitializeTaskList(GetComponent<UIDocument>().rootVisualElement, taskListEntryTemplate);
+
         HideAllOverlays();
         SetScore(0);
     }
@@ -103,7 +111,7 @@ public class SimpleRuntimeUI : MonoBehaviour
         canSubmitScore = true;
         submitScoreButton.SetEnabled(true);
 
-        leaderboardController.InitializeLeaderboardList(GetComponent<UIDocument>().rootVisualElement, listEntryTemplate);
+        leaderboardController.InitializeLeaderboardList(GetComponent<UIDocument>().rootVisualElement, leaderboardListEntryTemplate);
         leaderboardController.UpdateLeaderboard(inData);
         winOverlayscoreLabel.text = inFinalScore.ToString();
     }
@@ -131,6 +139,13 @@ public class SimpleRuntimeUI : MonoBehaviour
         if (leaderboardController != null) 
         {
             leaderboardController.UpdateLeaderboard(inData);
+        }
+    }
+    public void UpdateTasks(List<Task> inData)
+    {
+        if (taskViewController != null)
+        {
+            taskViewController.UpdateTasks(inData);
         }
     }
 }
