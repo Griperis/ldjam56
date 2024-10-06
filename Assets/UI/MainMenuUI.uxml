@@ -1,6 +1,8 @@
 <ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" xsi="http://www.w3.org/2001/XMLSchema-instance" engine="UnityEngine.UIElements" editor="UnityEditor.UIElements" noNamespaceSchemaLocation="../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
-    <ui:VisualElement name="Root" style="flex-grow: 1; align-items: stretch; justify-content: flex-start; flex-direction: column; align-self: stretch; position: absolute; height: 89px; width: 176px; top: 40%; left: 20px;">
-        <ui:Button text="Start" parse-escape-sequences="true" display-tooltip-when-elided="true" name="Start" style="font-size: 50px;" />
-        <ui:Button text="Exit" parse-escape-sequences="true" display-tooltip-when-elided="true" name="Exit" style="font-size: 50px;" />
+    <Style src="project://database/Assets/UI/style.uss?fileID=7433441132597879392&amp;guid=9318d904dd82893429bc5d4ee0f42c23&amp;type=3#style" />
+    <ui:VisualElement name="Root" style="flex-grow: 1; align-items: stretch; justify-content: flex-start; flex-direction: column; align-self: stretch; position: absolute; top: 52%; left: 42px;">
+        <ui:Label tabindex="-1" text="GAME NAME" parse-escape-sequences="false" display-tooltip-when-elided="false" name="GameTitle" enable-rich-text="false" class="game-title" style="-unity-font-style: bold; -unity-font-definition: initial;" />
+        <ui:Button text="Start" parse-escape-sequences="true" display-tooltip-when-elided="true" name="Start" class="main-menu-button" style="-unity-font-definition: initial; -unity-font-style: normal;" />
+        <ui:Button text="Exit" parse-escape-sequences="true" display-tooltip-when-elided="true" name="Exit" class="main-menu-button" style="-unity-font-definition: initial; -unity-font-style: normal;" />
     </ui:VisualElement>
 </ui:UXML>
