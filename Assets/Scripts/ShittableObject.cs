@@ -58,6 +58,7 @@ public class ShittableObject : MonoBehaviour
     {
         tasker.ShittableObjectHit(this);
         scoreManager.AddScore(score);
+        FloatingTextManager.CreateFloatingText(transform, $"+{score}");
 
         //TODO: Handle animations, sounds and shit here
     }

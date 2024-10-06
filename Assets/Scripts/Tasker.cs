@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 using UnityEngine.Assertions;
+using UnityEngine.SocialPlatforms.Impl;
 
 /* 
  * Possible task types:
@@ -194,6 +195,7 @@ public class Tasker : MonoBehaviour
         Debug.Log($"Completed task {task.Name}");
         tasksCompleted++;
         scoreManager.AddScore(task.Score);
+        FloatingTextManager.CreateFloatingText(lastShittableObject.transform, $"+{task.Score} task", outlineColor: task.color);
         GenerateNewTask();
     }
 
