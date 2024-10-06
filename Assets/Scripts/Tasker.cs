@@ -8,14 +8,24 @@ using UnityEngine.Assertions;
  * Possible task types:
  * - Shit on X/N AssetName (e. g. Shit on 0/3 ambulances) - DONE
  * - Shit X times on AssetName - TODO
+ * - Shit X times on Any Asset
 */
 public class Task
 {
-    public string name {
+    public string Name {
         get {
             return $"{progress}/{total} {targetName}";
         }
     }
+
+    public int Score
+    {
+        get
+        {
+            return Mathf.RoundToInt(scoreModifier * gatheredScore);
+        }
+    }
+
     // Color the task is identified by - the outline and should be displayed in the UI
     public Color color;
     // List of ACTIVE targets, hit targets get remvoed
@@ -26,6 +36,8 @@ public class Task
     private string targetName;
     private int progress = 0;
     private int total = 0;
+    private float scoreModifier = 2.0f;
+    private int gatheredScore = 0;
 
 
     public Task(List<ShittableObject> targets, Color color)
@@ -67,10 +79,12 @@ public class Task
         return !targets.Any();
     }
 
+    // Completes target 'target' from this Task
     private void CompleteTarget(ShittableObject target)
     {
         targets.Remove(target);
         progress++;
+        gatheredScore += target.score;
         target.ToggleOutline(false);
     }
 }
@@ -155,7 +169,7 @@ public class Tasker : MonoBehaviour
         foreach (var task in tasksToRemove)
         {
             tasks.Remove(task);
-            TaskCompleted(task);
+            TaskCompleted(task, shittableObject);
         }
 
     }
@@ -175,16 +189,17 @@ public class Tasker : MonoBehaviour
         }
     }
 
-    private void TaskCompleted(Task task)
+    private void TaskCompleted(Task task, ShittableObject lastShittableObject)
     {
-        Debug.Log($"Completed task {task.name}");
+        Debug.Log($"Completed task {task.Name}");
         tasksCompleted++;
+        scoreManager.AddScore(task.Score);
         GenerateNewTask();
     }
 
     private void TaskAdded(Task task)
     {
-        Debug.Log($"Added task {task.name}");
+        Debug.Log($"Added task {task.Name}");
     }
 
     private List<ShittableObject> GetNewTaskTargets()
