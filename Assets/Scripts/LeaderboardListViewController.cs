@@ -7,23 +7,18 @@ public class LeaderboardListViewController
     VisualTreeAsset listEntryTemplate;
     ListView leaderboardListView;
 
-    List<string> testData;
+    List<LeaderboardDataItem> data;
 
     public void InitializeLeaderboardList(VisualElement root, VisualTreeAsset listElementTemplate)
     {
         listEntryTemplate = listElementTemplate;
         leaderboardListView = root.Q<ListView>("LeaderboardListView");
-
-        testData = new List<string>();
-        testData.Add("Hudry");
-        testData.Add("Zbonek");
-        testData.Add("Brisk");
-
-        FillLeaderborad();
     }
 
-    void FillLeaderborad()
+    public void UpdateLeaderboard(List<LeaderboardDataItem> inData)
     {
+        data = inData;
+
         leaderboardListView.makeItem = () =>
         {
             var newListEntry = listEntryTemplate.Instantiate();
@@ -37,10 +32,10 @@ public class LeaderboardListViewController
 
         leaderboardListView.bindItem = (item, index) =>
         {
-            (item.userData as LeaderboardItemController)?.SetData(testData[index]);
+            (item.userData as LeaderboardItemController)?.SetData(data[index]);
         };
 
-        leaderboardListView.itemsSource = testData;
+        leaderboardListView.itemsSource = data;
         leaderboardListView.Rebuild();
     }
 }

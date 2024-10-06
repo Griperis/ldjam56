@@ -20,7 +20,7 @@
         <ui:Label tabindex="-1" text="Game Finished!" parse-escape-sequences="true" display-tooltip-when-elided="true" name="Label" class="overlay-title" style="position: relative; -unity-text-align: upper-right;" />
         <ui:VisualElement style="flex-grow: 1; flex-direction: row; margin-top: 32px;">
             <ui:Label tabindex="-1" text="Your score:&#10;" parse-escape-sequences="false" display-tooltip-when-elided="false" enable-rich-text="false" class="overlay-general-label" />
-            <ui:Label tabindex="-1" text="0" parse-escape-sequences="false" display-tooltip-when-elided="false" name="ScoreLabel" enable-rich-text="false" class="overlay-general-label" style="padding-left: 12px;" />
+            <ui:Label tabindex="-1" text="0" parse-escape-sequences="false" display-tooltip-when-elided="false" name="WinOverlayScoreLabel" enable-rich-text="false" class="overlay-general-label" style="padding-left: 12px;" />
         </ui:VisualElement>
         <ui:TextField picking-mode="Ignore" label="Enter name:" value="Player" name="PlayerNameTextField" class="overlay-text-field" style="margin-top: 24px;" />
         <ui:Button text="SUBMIT SCORE" parse-escape-sequences="true" display-tooltip-when-elided="true" name="SubmitScoreButton" class="overlay-button" style="margin-top: 16px;" />

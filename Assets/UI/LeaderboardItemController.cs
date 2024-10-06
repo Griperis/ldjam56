@@ -11,9 +11,9 @@ public class LeaderboardItemController
         scoreLabel = visualElement.Q<Label>("ScoreLabel");
     }
 
-    public void SetData(string inPlayerName)
+    public void SetData(LeaderboardDataItem inData)
     {
-        playerNameLabel.text = inPlayerName;
-        //scoreLabel.text = inScore.ToString();
+        playerNameLabel.text = inData.playerName;
+        scoreLabel.text = inData.score.ToString();
     }
 }

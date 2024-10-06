@@ -3,6 +3,7 @@
     --primary_color_light: rgb(255, 221, 158);
     --warning_color: rgb(145, 60, 54);
     --success_color: rgb(102, 133, 60);
+    --disabled_color: rgb(112, 112, 112);
     -unity-font: url("project://database/Assets/UI/FlyingBird-Yz9Ga.otf?fileID=12800000&guid=d080b99112a4d104084a8feca33888f1&type=3#FlyingBird-Yz9Ga");
     -unity-font-definition: initial;
 }
@@ -56,6 +57,10 @@
     color: var(--primary_color_light);
 }
 
+.overlay-button:disabled {
+    color: var(--disabled_color);
+}
+
 .ingame-label {
     right: 0;
     -unity-font-style: bold;
@@ -74,7 +79,7 @@
 
 .overlay-background {
     flex-grow: 1;
-    background-color: rgba(0, 0, 0, 0.78);
+    background-color: rgba(0, 0, 0, 0.9);
     position: absolute;
     left: -32px;
     top: -32px;

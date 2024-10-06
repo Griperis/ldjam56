@@ -6,6 +6,7 @@ public class SimpleRuntimeUI : MonoBehaviour
 {
     private GameManager manager;
     private Label scoreLabel;
+    private Label winOverlayscoreLabel;
     private Label timeLabel;
     private VisualElement endScreen;
     private VisualElement winScreen;
@@ -13,10 +14,14 @@ public class SimpleRuntimeUI : MonoBehaviour
     private Button restartButton;
     private Button winMenuButton;
     private Button winRestartButton;
-
+    private Button submitScoreButton;
+    private TextField PlayerName;
 
     private LeaderboardListViewController leaderboardController;
     public VisualTreeAsset listEntryTemplate;
+
+    private int finalScoreCached;
+    private bool canSubmitScore = true;
 
     private void Awake()
     {
@@ -33,11 +38,15 @@ public class SimpleRuntimeUI : MonoBehaviour
         timeLabel = uiDocument.rootVisualElement.Q<Label>("TimerDisplay");
         endScreen = uiDocument.rootVisualElement.Q("EndScreenOverlay");
         winScreen = uiDocument.rootVisualElement.Q("WinScreenOverlay");
+        winOverlayscoreLabel = uiDocument.rootVisualElement.Q<Label>("WinOverlayScoreLabel");
+
+        PlayerName = uiDocument.rootVisualElement.Q<TextField>("PlayerNameTextField");
 
         menuButton = uiDocument.rootVisualElement.Q<Button>("Menu");
         restartButton = uiDocument.rootVisualElement.Q<Button>("Restart");
         winMenuButton = uiDocument.rootVisualElement.Q<Button>("WinMenu");
         winRestartButton = uiDocument.rootVisualElement.Q<Button>("WinRestart");
+        submitScoreButton = uiDocument.rootVisualElement.Q<Button>("SubmitScoreButton");
 
         restartButton.clicked += () =>
         {
@@ -59,6 +68,19 @@ public class SimpleRuntimeUI : MonoBehaviour
             manager.EnterMenu();
         };
 
+        submitScoreButton.clicked += () =>
+        {
+            if (canSubmitScore) 
+            {
+                LeaderboardManager.Instance.SubmitScoreToLeaderboard(PlayerName.text, finalScoreCached);
+                
+                canSubmitScore = false;
+                submitScoreButton.SetEnabled(false);
+
+                UpdateLeaderboard(LeaderboardManager.Instance.GetLeaderboardData());
+            }
+        };
+
         leaderboardController = new LeaderboardListViewController();
         
         HideAllOverlays();
@@ -70,10 +92,17 @@ public class SimpleRuntimeUI : MonoBehaviour
         endScreen.visible = toggle;
     }
 
-    public void ToggleWinScreen(bool toggle)
+    public void OpenWinOverlay(int inFinalScore, List<LeaderboardDataItem> inData)
     {
-        winScreen.visible = toggle;
+        finalScoreCached = inFinalScore;
+
+        winScreen.visible = true;
+        canSubmitScore = true;
+        submitScoreButton.SetEnabled(true);
+
         leaderboardController.InitializeLeaderboardList(GetComponent<UIDocument>().rootVisualElement, listEntryTemplate);
+        leaderboardController.UpdateLeaderboard(inData);
+        winOverlayscoreLabel.text = inFinalScore.ToString();
     }
 
     public void HideAllOverlays()
@@ -93,5 +122,12 @@ public class SimpleRuntimeUI : MonoBehaviour
     public void SetRemainingTimeLow(bool inIsRemainingTimeLow)
     {
         timeLabel.EnableInClassList("warning", inIsRemainingTimeLow);
+    }
+    public void UpdateLeaderboard(List<LeaderboardDataItem> inData) 
+    {
+        if (leaderboardController != null) 
+        {
+            leaderboardController.UpdateLeaderboard(inData);
+        }
     }
 }

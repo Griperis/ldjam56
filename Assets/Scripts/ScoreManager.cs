@@ -5,7 +5,8 @@ using UnityEngine;
 public class ScoreManager : MonoBehaviour
 {
     public SimpleRuntimeUI inGameUi;
-    int totalScore = 0;
+
+    private int totalScore = 0;
 
     void Awake()
     {
@@ -33,7 +34,7 @@ public class ScoreManager : MonoBehaviour
         inGameUi.SetScore(totalScore);
     }
 
-    int GetScore() 
+    public int GetScore() 
     {
         return totalScore;
     }

@@ -13,7 +13,7 @@ public class GameManager : MonoBehaviour
 {
     public SimpleRuntimeUI inGameUi;
 
-    private ScoreManager scoreManager;
+    public ScoreManager scoreManager;
     private GameState gameState;
 
     public float gameTimeLimit = 60.0f;
@@ -80,9 +80,8 @@ public class GameManager : MonoBehaviour
     public void WinGame() // Game won - timer finished
     {
         gameState = GameState.GameEnd;
-        inGameUi.ToggleWinScreen(true);
+        inGameUi.OpenWinOverlay(scoreManager.GetScore(), LeaderboardManager.Instance.GetLeaderboardData());
         Time.timeScale = 0;
-        // TODO: Finishes the game, displays high score
     }
 
     public GameState GetGameState()
