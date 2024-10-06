@@ -16,7 +16,7 @@ GameObject:
   - component: {fileID: 137702875133588938}
   m_Layer: 10
   m_Name: PidgeonShit
-  m_TagString: Untagged
+  m_TagString: PigeonShit
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -149,3 +149,5 @@ MonoBehaviour:
   decalObject: {fileID: 1095338602909259977, guid: 19670edaac464d64b8a66935b9e28018, type: 3}
   minRandomScale: 1
   maxRandomScale: 3
+  minRandomRotation: -5
+  maxRandomRotation: 5

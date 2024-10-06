@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 8813478126382554406}
   - component: {fileID: 1243523760587238000}
   - component: {fileID: 4319008046525699304}
+  - component: {fileID: 4569389695214051840}
   m_Layer: 0
   m_Name: GameController
   m_TagString: GameController
@@ -61,7 +62,20 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   inGameUi: {fileID: 3550787516883883814}
   gameTimeLimit: 60
-  gameTimeLowWarning: 10
+--- !u!114 &4569389695214051840
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7225005301945682725}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 016d682daa144f1468f9c7a25f17e7fa, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  maxConcurrentTasks: 3
+  maxObjectsInTask: 3
 --- !u!1001 &3833281701538351923
 PrefabInstance:
   m_ObjectHideFlags: 0
