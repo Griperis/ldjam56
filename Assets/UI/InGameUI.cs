@@ -7,6 +7,7 @@ public class SimpleRuntimeUI : MonoBehaviour
     private Label scoreLabel;
     private Label timeLabel;
     private VisualElement endScreen;
+    private VisualElement winScreen;
     private Button menuButton;
     private Button restartButton;
 
@@ -22,9 +23,10 @@ public class SimpleRuntimeUI : MonoBehaviour
         // The UXML is already instantiated by the UIDocument component
         var uiDocument = GetComponent<UIDocument>();
 
-        scoreLabel = uiDocument.rootVisualElement.Q<Label>("ScoreDisplay");
-        timeLabel = uiDocument.rootVisualElement.Q<Label>("TimerDisplay");
+        scoreLabel = uiDocument.rootVisualElement.Q<VisualElement>("GameplayLabels").Q<Label>("ScoreDisplay");
+        timeLabel = uiDocument.rootVisualElement.Q<VisualElement>("GameplayLabels").Q<Label>("TimerDisplay");
         endScreen = uiDocument.rootVisualElement.Q("EndScreenOverlay");
+        winScreen = uiDocument.rootVisualElement.Q("WinScreenOverlay");
 
         menuButton = uiDocument.rootVisualElement.Q<Button>("Menu");
         restartButton = uiDocument.rootVisualElement.Q<Button>("Restart");
@@ -38,7 +40,7 @@ public class SimpleRuntimeUI : MonoBehaviour
             manager.EnterMenu();
         };
 
-        ToggleEndScreen(false);
+        HideAllOverlays();
         SetScore(0);
     }
 
@@ -49,7 +51,18 @@ public class SimpleRuntimeUI : MonoBehaviour
     public void ToggleEndScreen(bool toggle)
     {
         endScreen.visible = toggle;
-     }
+    }
+
+    public void ToggleWinScreen(bool toggle)
+    {
+        winScreen.visible = toggle;
+    }
+
+    public void HideAllOverlays()
+    {
+        endScreen.visible = false;
+        winScreen.visible = false;
+    }
 
     public void SetScore(int inScore)
     {
@@ -57,6 +70,10 @@ public class SimpleRuntimeUI : MonoBehaviour
     }
     public void SetRemainingTimeSeconds(float inTimeLeft)
     {
-        timeLabel.text = "Time left: " + inTimeLeft.ToString("F0") + "s";
+        timeLabel.text = inTimeLeft.ToString("F0") + "s";
+    }
+    public void SetRemainingTimeLow(bool inIsRemainingTimeLow)
+    {
+        timeLabel.EnableInClassList("warning", inIsRemainingTimeLow);
     }
 }

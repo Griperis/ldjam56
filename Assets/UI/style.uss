@@ -1,7 +1,10 @@
 :root {
     --primary_color: rgb(255, 164, 0);
-    --primary_color_light: #FFDD9E;
+    --primary_color_light: rgb(255, 221, 158);
+    --warning_color: rgb(145, 60, 54);
+    --success_color: rgb(102, 133, 60);
     -unity-font: url("project://database/Assets/UI/FlyingBird-Yz9Ga.otf?fileID=12800000&guid=d080b99112a4d104084a8feca33888f1&type=3#FlyingBird-Yz9Ga");
+    -unity-font-definition: initial;
 }
 
 .main-menu-button {
@@ -32,4 +35,51 @@
     color: var(--primary_color);
     -unity-font-style: bold;
     font-size: 69px;
+}
+
+.overlay-title {
+    font-size: 69px;
+}
+
+.overlay-button {
+    font-size: 48px;
+    background-color: rgba(0, 0, 0, 0);
+    border-left-color: rgba(0, 0, 0, 0);
+    border-right-color: rgba(0, 0, 0, 0);
+    border-top-color: rgba(0, 0, 0, 0);
+    border-bottom-color: rgba(0, 0, 0, 0);
+}
+
+.overlay-button:hover {
+    color: var(--primary_color_light);
+}
+
+.ingame-label {
+    right: 0;
+    -unity-font-style: bold;
+    color: rgb(255, 255, 255);
+    -unity-text-align: upper-left;
+    font-size: 48px;
+}
+
+.warning {
+    color: var(--warning_color);
+}
+
+.success {
+    color: var(--success_color);
+}
+
+.overlay-background {
+    flex-grow: 1;
+    background-color: rgba(0, 0, 0, 0.78);
+    position: absolute;
+    left: -32px;
+    top: -32px;
+    right: -32px;
+    bottom: -32px;
+    border-top-left-radius: 32px;
+    border-top-right-radius: 32px;
+    border-bottom-right-radius: 32px;
+    border-bottom-left-radius: 32px;
 }

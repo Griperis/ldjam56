@@ -18,7 +18,10 @@ public class GameManager : MonoBehaviour
     private GameState gameState;
 
     public float gameTimeLimit = 60.0f;
+    public float gameTimeLowWarning = 10.0f;
+
     float elapsedTime = 0.0f;
+    bool timeLowSet = false;
 
     private void Awake()
     {
@@ -38,10 +41,17 @@ public class GameManager : MonoBehaviour
             {
                 elapsedTime += Time.deltaTime;
                 inGameUi.SetRemainingTimeSeconds(gameTimeLimit - elapsedTime);
+
+                if (gameTimeLimit - elapsedTime <= gameTimeLowWarning && !timeLowSet) 
+                {
+                    inGameUi.SetRemainingTimeLow(true);
+                    timeLowSet = true;
+                }
+
             }
             else 
             {
-                FinishGame();
+                WinGame();
             }
         }
     }
@@ -49,12 +59,16 @@ public class GameManager : MonoBehaviour
     public void ResetElapsedTime()
     {
         elapsedTime = 0.0f;
+        inGameUi.SetRemainingTimeLow(false);
+        timeLowSet = false;
     }
 
     public void EnterGame()
     {
         gameState = GameState.InGame;
         inGameUi.gameObject.SetActive(true);
+        inGameUi.HideAllOverlays();
+        ResetElapsedTime();
         SceneManager.LoadScene("SimplePoly City - Low Poly Assets_Demo Scene");
         Debug.Log("Sport");
     }
@@ -62,7 +76,7 @@ public class GameManager : MonoBehaviour
     public void RestartGame()
     {
         gameState = GameState.InGame;
-        inGameUi.ToggleEndScreen(false);
+        inGameUi.HideAllOverlays();
         scoreManager.ResetScore();
         ResetElapsedTime();
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
@@ -75,10 +89,15 @@ public class GameManager : MonoBehaviour
         SceneManager.LoadScene("Menu");
     }
 
-    public void FinishGame()
+    public void FinishGame() // Game failed - hit a bulding or smth
     {
         gameState = GameState.GameEnd;
         inGameUi.ToggleEndScreen(true);
+    }
+    public void WinGame() // Game won - timer finished
+    {
+        gameState = GameState.GameEnd;
+        inGameUi.ToggleWinScreen(true);
         // TODO: Finishes the game, displays high score
     }
 

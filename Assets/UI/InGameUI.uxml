@@ -1,11 +1,26 @@
 <ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" xsi="http://www.w3.org/2001/XMLSchema-instance" engine="UnityEngine.UIElements" editor="UnityEditor.UIElements" noNamespaceSchemaLocation="../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
-    <ui:Label tabindex="-1" text="Score: XXX" parse-escape-sequences="true" display-tooltip-when-elided="true" name="ScoreDisplay" enable-rich-text="false" style="right: 0; -unity-font-style: bold; color: rgb(255, 255, 255); -unity-text-align: upper-right; font-size: 32px;" />
-    <ui:Label tabindex="-1" text="Time left: XXX" parse-escape-sequences="true" display-tooltip-when-elided="true" name="TimerDisplay" enable-rich-text="false" style="right: 0; -unity-font-style: bold; color: rgb(255, 255, 255); -unity-text-align: upper-right; font-size: 32px;" />
-    <ui:VisualElement name="EndScreenOverlay" style="flex-grow: 1; color: rgb(255, 255, 255); -unity-font-style: bold; align-items: center; justify-content: space-around; align-self: center; display: flex; visibility: visible; position: absolute; top: 40%;">
-        <ui:Label tabindex="-1" text="That didn&apos;t flock" parse-escape-sequences="true" display-tooltip-when-elided="true" name="Label" style="position: relative; -unity-text-align: upper-right; font-size: 50px;" />
+    <Style src="project://database/Assets/UI/style.uss?fileID=7433441132597879392&amp;guid=9318d904dd82893429bc5d4ee0f42c23&amp;type=3#style" />
+    <ui:VisualElement name="GameplayLabels" style="position: absolute; right: auto; top: 64px; left: 64px;">
+        <ui:Label tabindex="-1" text="Score: XXX" parse-escape-sequences="false" display-tooltip-when-elided="false" name="ScoreDisplay" enable-rich-text="false" class="ingame-label" style="right: 0;" />
         <ui:VisualElement style="flex-grow: 1; flex-direction: row;">
-            <ui:Button text="Restart" parse-escape-sequences="true" display-tooltip-when-elided="true" name="Restart" />
-            <ui:Button text="Menu" parse-escape-sequences="true" display-tooltip-when-elided="true" name="Menu" />
+            <ui:Label tabindex="-1" text="Time left:" parse-escape-sequences="false" display-tooltip-when-elided="false" name="TimerLabel" enable-rich-text="false" class="ingame-label" />
+            <ui:Label tabindex="-1" text="XXX" parse-escape-sequences="false" display-tooltip-when-elided="false" name="TimerDisplay" enable-rich-text="false" class="ingame-label" />
+        </ui:VisualElement>
+    </ui:VisualElement>
+    <ui:VisualElement name="EndScreenOverlay" style="flex-grow: 1; color: rgb(255, 255, 255); -unity-font-style: bold; align-items: center; justify-content: space-around; align-self: center; display: flex; visibility: visible; position: absolute; top: 40%;">
+        <ui:VisualElement name="Background" class="overlay-background" />
+        <ui:Label tabindex="-1" text="That didn&apos;t flock" parse-escape-sequences="true" display-tooltip-when-elided="true" name="Label" class="warning overlay-title" style="position: relative; -unity-text-align: upper-right;" />
+        <ui:VisualElement style="flex-grow: 1; flex-direction: row; margin-top: 32px;">
+            <ui:Button text="Restart" parse-escape-sequences="true" display-tooltip-when-elided="true" name="Restart" class="overlay-button" />
+            <ui:Button text="Menu" parse-escape-sequences="true" display-tooltip-when-elided="true" name="Menu" class="overlay-button" />
+        </ui:VisualElement>
+    </ui:VisualElement>
+    <ui:VisualElement name="WinScreenOverlay" style="flex-grow: 1; color: rgb(255, 255, 255); -unity-font-style: bold; align-items: center; justify-content: space-around; align-self: center; display: flex; visibility: visible; position: absolute; top: 40%;">
+        <ui:VisualElement name="Background" class="overlay-background" />
+        <ui:Label tabindex="-1" text="You Won!" parse-escape-sequences="true" display-tooltip-when-elided="true" name="Label" class="overlay-title success" style="position: relative; -unity-text-align: upper-right;" />
+        <ui:VisualElement style="flex-grow: 1; flex-direction: row; margin-top: 32px;">
+            <ui:Button text="Restart" parse-escape-sequences="true" display-tooltip-when-elided="true" name="Restart" class="overlay-button" />
+            <ui:Button text="Menu" parse-escape-sequences="true" display-tooltip-when-elided="true" name="Menu" class="overlay-button" />
         </ui:VisualElement>
     </ui:VisualElement>
 </ui:UXML>
