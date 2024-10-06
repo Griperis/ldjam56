@@ -10,11 +10,12 @@ public class SimpleRuntimeUI : MonoBehaviour
     private Label timeLabel;
     private VisualElement endScreen;
     private VisualElement winScreen;
+    private VisualElement leaderboardScreen;
     private VisualElement pauseScreen;
     private Button menuButton;
     private Button restartButton;
-    private Button winMenuButton;
-    private Button winRestartButton;
+    private Button leaderboardMenuButton;
+    private Button leaderboardRestartButton;
     private Button submitScoreButton;
     private Button pauseMenuButton;
     private Button pauseContinueButton;
@@ -49,14 +50,15 @@ public class SimpleRuntimeUI : MonoBehaviour
 
         endScreen = uiDocument.rootVisualElement.Q("EndScreenOverlay");
         winScreen = uiDocument.rootVisualElement.Q("WinScreenOverlay");
+        leaderboardScreen = uiDocument.rootVisualElement.Q("LeaderboardScreenOverlay");
         pauseScreen = uiDocument.rootVisualElement.Q("PauseScreenOverlay");
 
         PlayerName = uiDocument.rootVisualElement.Q<TextField>("PlayerNameTextField");
 
         menuButton = uiDocument.rootVisualElement.Q<Button>("Menu");
         restartButton = uiDocument.rootVisualElement.Q<Button>("Restart");
-        winMenuButton = uiDocument.rootVisualElement.Q<Button>("WinMenu");
-        winRestartButton = uiDocument.rootVisualElement.Q<Button>("WinRestart");
+        leaderboardMenuButton = uiDocument.rootVisualElement.Q<Button>("WinMenu");
+        leaderboardRestartButton = uiDocument.rootVisualElement.Q<Button>("WinRestart");
         submitScoreButton = uiDocument.rootVisualElement.Q<Button>("SubmitScoreButton");
         pauseMenuButton = uiDocument.rootVisualElement.Q<Button>("PauseMenu");
         pauseContinueButton = uiDocument.rootVisualElement.Q<Button>("PauseContinue");
@@ -72,12 +74,12 @@ public class SimpleRuntimeUI : MonoBehaviour
             manager.EnterMenu();
         };
 
-        winRestartButton.clicked += () =>
+        leaderboardRestartButton.clicked += () =>
         {
             Time.timeScale = 1;
             manager.RestartGame();
         };
-        winMenuButton.clicked += () =>
+        leaderboardMenuButton.clicked += () =>
         {
             Time.timeScale = 1;
             manager.EnterMenu();
@@ -101,6 +103,8 @@ public class SimpleRuntimeUI : MonoBehaviour
                 
                 canSubmitScore = false;
                 submitScoreButton.SetEnabled(false);
+                winScreen.visible = false;
+                leaderboardScreen.visible = true;
 
                 UpdateLeaderboard(LeaderboardManager.Instance.GetLeaderboardData());
             }
@@ -156,6 +160,7 @@ public class SimpleRuntimeUI : MonoBehaviour
         endScreen.visible = false;
         winScreen.visible = false;
         pauseScreen.visible = false;
+        leaderboardScreen.visible = false;
     }
 
     public void SetScore(int inScore)
