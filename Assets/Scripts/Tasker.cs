@@ -75,6 +75,16 @@ public class Task
         }
     }
 
+    // Closes the task, without adding any score
+    public void Close()
+    {
+        foreach (var target in targets)
+        {
+            target.ToggleOutline(false);
+        }
+        targets.Clear();
+    }
+
     public bool IsCompleted()
     {
         return !targets.Any();
@@ -141,9 +151,17 @@ public class Tasker : MonoBehaviour
                 shittableObjsByName.Add(soleName, new List<ShittableObject>());
             }
         }
-        for (int i = 0; i < maxConcurrentTasks; i++)
+        PopulateWithTasks();
+    }
+
+    private void Update()
+    {
+        if (Application.isEditor)
         {
-            GenerateNewTask();
+            if (Input.GetKeyDown(KeyCode.R))
+            {
+                RefreshTasks();
+            }
         }
     }
 
@@ -165,6 +183,24 @@ public class Tasker : MonoBehaviour
         tasks.Add(task);
         TaskAdded(task);
         tasksCreated++;
+    }
+
+    public void PopulateWithTasks()
+    {
+        for (int i = 0; i < maxConcurrentTasks; i++)
+        {
+            GenerateNewTask();
+        }
+    }
+
+    public void RefreshTasks()
+    {
+        foreach (var task in tasks)
+        {
+            task.Close();
+        }
+        tasks.Clear();
+        PopulateWithTasks();
     }
 
     // Called from the outside, from the shittable object
