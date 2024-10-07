@@ -16794,8 +16794,12 @@ PrefabInstance:
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: 4319008046525699304, guid: 9e648c7add2e9a94dabe99e75789a0a7, type: 3}
+      propertyPath: winSound
+      value: 
+      objectReference: {fileID: 8300000, guid: 82170a8e93a1c38408ef0f41297d51b9, type: 3}
+    - target: {fileID: 4319008046525699304, guid: 9e648c7add2e9a94dabe99e75789a0a7, type: 3}
       propertyPath: gameTimeLimit
-      value: 120
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 4319008046525699304, guid: 9e648c7add2e9a94dabe99e75789a0a7, type: 3}
       propertyPath: tickTockStart

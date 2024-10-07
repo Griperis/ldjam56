@@ -68,6 +68,7 @@ MonoBehaviour:
   gameTimeLimit: 30
   gameTimeLowWarning: 15
   tickTockAudioSource: {fileID: 2261347560735655128}
+  winSound: {fileID: 8300000, guid: 82170a8e93a1c38408ef0f41297d51b9, type: 3}
   tickTockStart: 0.5
 --- !u!114 &4569389695214051840
 MonoBehaviour:

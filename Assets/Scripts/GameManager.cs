@@ -16,8 +16,6 @@ public class GameManager : MonoBehaviour
 
     public ScoreManager scoreManager;
 
-
-
     private GameState gameState;
 
     public float gameTimeLimit = 60.0f;
@@ -25,6 +23,8 @@ public class GameManager : MonoBehaviour
 
     [Header("Audio")]
     public AudioSource tickTockAudioSource;
+    public AudioClip winSound;
+
     [Range(0.0f, 1.0f)]
     public float tickTockStart = 0.5f;
     
@@ -60,16 +60,12 @@ public class GameManager : MonoBehaviour
                     inGameUi.SetRemainingTimeLow(true);
                     timeLowSet = true;
                 }
+                UpdateTickTockSound();
             }
             else 
             {
                 WinGame();
             }
-        }
-        float gameProgress = elapsedTime / gameTimeLimit;
-        if (gameProgress > tickTockStart)
-        {
-            tickTockAudioSource.volume = (gameProgress - tickTockStart) * 1.0f / (1.0f - tickTockStart);
         }
     }
 
@@ -95,16 +91,28 @@ public class GameManager : MonoBehaviour
     {
         gameState = GameState.GameEnd;
         inGameUi.ToggleEndScreen(true);
+        tickTockAudioSource.volume = 0.0f;
     }
     public void WinGame() // Game won - timer finished
     {
         gameState = GameState.GameEnd;
         inGameUi.OpenWinOverlay(scoreManager.GetScore(), LeaderboardManager.Instance.GetLeaderboardData());
         Time.timeScale = 0;
+        tickTockAudioSource.volume = 0.0f;
+        AudioManager.PlayAudioClip(winSound, transform, 0.5f);
     }
 
     public GameState GetGameState()
     {
         return gameState;
+    }
+
+    private void UpdateTickTockSound()
+    {
+        float gameProgress = elapsedTime / gameTimeLimit;
+        if (gameProgress > tickTockStart)
+        {
+            tickTockAudioSource.volume = (gameProgress - tickTockStart) * 1.0f / (1.0f - tickTockStart);
+        }
     }
 }
