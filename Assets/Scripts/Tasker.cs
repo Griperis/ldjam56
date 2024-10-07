@@ -19,7 +19,7 @@ public abstract class Task
     {
         get
         {
-            return $"{targetName} {progress}/{total} (+{awardScore})";
+            return $"{progress}/{total} (+{awardScore})";
         }
     }
 
@@ -88,7 +88,7 @@ public abstract class Task
     }
 
     // Completes target 'target' from this Task
-    private void CompleteTarget(ShittableObject target)
+    virtual protected void CompleteTarget(ShittableObject target)
     {
         targets.Remove(target);
         progress++;
@@ -98,6 +98,14 @@ public abstract class Task
 
 public class HitSpecificTask : Task
 {
+    override public string Name
+    {
+        get
+        {
+            return $"{progress}/{total} chosen {targetName} (+{awardScore})";
+        }
+    }
+
     public HitSpecificTask(List<ShittableObject> targets, Color color) : base(targets, color, GetRarityScoreModifier(targets.Count)) { }
 
     override public bool IsCompleted()
@@ -122,7 +130,7 @@ public class HitAnyTask : Task
     {
         get
         {
-            return $"Any {targetName} {progress}/{total} (+{awardScore})";
+            return $"{progress}/{total} different {targetName} (+{awardScore})";
         }
     }
 
@@ -143,6 +151,44 @@ public class HitAnyTask : Task
     }
 }
 
+public class HitXTimesTask : Task
+{
+    override public string Name
+    {
+        get
+        {
+            return $"{targetName} {total-progress} times (+{awardScore})";
+        }
+    }
+
+    public HitXTimesTask(List<ShittableObject> targets, int total, Color color) : base(targets, color, 2.0f)
+    {
+        this.total = total;
+        awardScore = CalculateAwardScore();
+    }
+
+    public override int CalculateAwardScore()
+    {
+        return Mathf.RoundToInt(scoreModifier * total * targets[0].score);
+    }
+
+    override public bool IsCompleted()
+    {
+        return progress >= total;
+    }
+    override protected void CompleteTarget(ShittableObject _)
+    {
+        progress++;
+        if (IsCompleted())
+        {
+            foreach (var target in targets)
+            {
+                target.DisableHighlight();
+            }
+        }
+    }
+}
+
 
 public class Tasker : MonoBehaviour
 {
@@ -158,6 +204,10 @@ public class Tasker : MonoBehaviour
     [Header("Hit Any Tasks")]
     public int hitAnyMaxObjects = 7;
     public int hitAnyMinObjectsIfApplicable = 3;
+
+    [Header("Hit X Time Tasks")]
+    public int hitXTimesMinHitCount = 5;
+    public int hitXTimesMaxHitCount = 20;
 
     [Header("Audio")]
     public AudioClip taskCompletedClip;
@@ -229,7 +279,7 @@ public class Tasker : MonoBehaviour
             return;
         }
         // Shouldn't this be deterministic?
-        var randInt = Random.Range(0, 2);
+        var randInt = Random.Range(0, 3);
         Task task = null;
         if (randInt == 0)
         {
@@ -256,6 +306,10 @@ public class Tasker : MonoBehaviour
                     GetTaskColor()
                 );
             }
+        }
+        else if (randInt == 2)
+        {
+            task = new HitXTimesTask(GetNewTaskTargets(true), Random.Range(hitXTimesMinHitCount, hitXTimesMaxHitCount), GetTaskColor());
         }
         tasks.Add(task);
         TaskAdded(task);
