@@ -121,7 +121,23 @@
     font-size: 42px;
 }
 
-.unity-collection-view__item:hover
-{
+.unity-collection-view__item:hover {
     background-color: rgba(0, 0, 0, 0);
+}
+
+.unity-progress-bar__container {
+    min-height: 69px;
+}
+
+.unity-progress-bar__background {
+    background-color: rgba(0, 0, 0, 0);
+    border-top-width: -1px;
+    border-right-width: -1px;
+    border-bottom-width: -1px;
+    border-left-width: -1px;
+}
+
+.unity-progress-bar__progress {
+    background-color: var(--primary_color);
+    border-radius: 10px;
 }
