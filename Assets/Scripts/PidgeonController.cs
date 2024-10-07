@@ -9,9 +9,8 @@ public class PidgeonController : MonoBehaviour
 
     public GameObject shitObject;
     public Transform shitOrigin;
-    public GameObject warningObject;
+    public CollisionWarning collisionWarning;
 
-    public float forwardCollisionWarningDistance = 10.0f;
 
     public Animator animator;
 
@@ -21,7 +20,6 @@ public class PidgeonController : MonoBehaviour
 
     [Header("Audio")]
     public AudioClip shitAudio;
-    public AudioClip warningAudio;
     public AudioClip hitSound;
 
     private float responseModifier
@@ -44,7 +42,6 @@ public class PidgeonController : MonoBehaviour
     {
         rb = GetComponent<Rigidbody>();
         gameManager = FindObjectOfType<GameManager>();
-        warningObject.SetActive(false);
         mesh = animator.gameObject.transform.parent.gameObject;
         isAlive = true;
         if (shitObject == null)
@@ -56,6 +53,7 @@ public class PidgeonController : MonoBehaviour
     private void OnCollisionEnter(Collision collision)
     {
         rb.AddForce(collision.impulse.normalized * 20.0f);
+        AudioManager.PlayAudioClip(shitAudio, transform, 0.5f, cooldown: 0.5f);
         Die();
     }
 
@@ -84,31 +82,14 @@ public class PidgeonController : MonoBehaviour
 
         rb.AddForce(transform.forward * maxThrust);
         rb.AddTorque(transform.up * yaw * responseModifier);
+    }
 
-        CheckForwardCollision();
-    }
-    private void CheckForwardCollision()
-    {
-        bool left = Physics.Raycast(transform.position - new Vector3(0.0f, 0.5f, 0.0f), transform.forward - 0.5f * transform.right, forwardCollisionWarningDistance);
-        bool middle = Physics.Raycast(transform.position - new Vector3(0.0f, 0.5f, 0.0f), transform.forward, forwardCollisionWarningDistance);
-        bool right = Physics.Raycast(transform.position - new Vector3(0.0f, 0.5f, 0.0f), transform.forward + 0.5f * transform.right, forwardCollisionWarningDistance);
-        ToggleWarning(left || middle || right);
-    }
-    private void ToggleWarning(bool toggle)
-    {
-        warningObject.SetActive(toggle);
-        if (toggle)
-        {
-            AudioManager.PlayAudioClip(warningAudio, transform, 0.3f, warningAudio.length);
-        }
-    }
     private void Shit()
     {
         var instance = Instantiate(shitObject);
         instance.transform.position = shitOrigin.position;
         instance.GetComponent<Rigidbody>().AddForce(-transform.up * shitForce);
         lastShit = Time.time;
-        AudioManager.PlayAudioClip(shitAudio, transform, 0.5f);
     }
     private bool CanShit()
     {
@@ -127,5 +108,6 @@ public class PidgeonController : MonoBehaviour
         animator.SetFloat("flappingSpeed", 0.0f);
         AudioManager.PlayAudioClip(hitSound, transform, 0.75f);
         gameManager.FinishGame();
+        collisionWarning.gameObject.SetActive(false);
     }
 }
