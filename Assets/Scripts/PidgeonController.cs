@@ -55,7 +55,7 @@ public class PidgeonController : MonoBehaviour
     private void OnCollisionEnter(Collision collision)
     {
         rb.AddForce(collision.impulse.normalized * 20.0f);
-        AudioManager.PlayAudioClip(shitAudio, transform, 0.5f, cooldown: 0.5f);
+        AudioManager.PlayAudioClip(hitSound, transform, 0.5f, cooldown: 0.5f);
         Die();
     }
 
@@ -92,6 +92,7 @@ public class PidgeonController : MonoBehaviour
         instance.transform.position = shitOrigin.position;
         instance.GetComponent<Rigidbody>().AddForce(-transform.up * shitForce);
         lastShit = Time.time;
+        AudioManager.PlayAudioClip(shitAudio, transform, 0.5f);
     }
     private bool CanShit()
     {
