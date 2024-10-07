@@ -65,7 +65,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   inGameUi: {fileID: 3550787516883883814}
   scoreManager: {fileID: 1243523760587238000}
-  gameTimeLimit: 30
+  gameTimeLimit: 120
   gameTimeLowWarning: 15
   tickTockAudioSource: {fileID: 2261347560735655128}
   winSound: {fileID: 8300000, guid: 82170a8e93a1c38408ef0f41297d51b9, type: 3}
