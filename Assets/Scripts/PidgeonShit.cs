@@ -37,7 +37,7 @@ public class PidgeonShit : MonoBehaviour
         instance.transform.localScale += 2.0f * new Vector3(normalizedShitCharge, normalizedShitCharge, 0.0f);
 
         float rotation = Random.Range(minRandomRotation, maxRandomRotation);
-        instance.transform.rotation = Quaternion.Euler(90.0f, rotation, rotation);
+        instance.transform.localRotation = Quaternion.Euler(90.0f, 0.0f, rotation);
 
         Destroy(gameObject);
 
