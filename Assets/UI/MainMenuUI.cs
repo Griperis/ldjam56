@@ -33,7 +33,7 @@ public class MainMenuUI : MonoBehaviour
 
     public void EnterGame()
     {
-        SceneManager.LoadScene("SimplePoly City - Low Poly Assets_Demo Scene");
+        SceneManager.LoadScene("Map");
         Debug.Log("Sport");
     }
 

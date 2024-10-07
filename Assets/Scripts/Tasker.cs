@@ -193,8 +193,7 @@ public class Tasker : MonoBehaviour
     }
     public static string GetObjectSoleName(ShittableObject obj)
     {
-        // The parent of the ShittableObject component is the root of the instanced prefab
-        string name = obj.transform.parent.name;
+        string name = obj.name;
         var bracketIndex = name.IndexOf('(');
         if (bracketIndex < 0)
         {
