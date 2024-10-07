@@ -41,7 +41,7 @@ public class FloatingText : MonoBehaviour
         if (outlineColor != null)
         {
             baseOutlineColor = outlineColor.Value;
-            textMeshPro.outlineWidth = 0.2f;
+            textMeshPro.outlineWidth = 0.5f;
         }
         else
         {
