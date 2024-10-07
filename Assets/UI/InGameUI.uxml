@@ -8,7 +8,7 @@
         </ui:VisualElement>
     </ui:VisualElement>
     <ui:VisualElement name="Tasks" style="flex-grow: 1; position: absolute; bottom: 64px; left: 64px; max-height: 300px;">
-        <ui:Label tabindex="-1" text="Targets:" parse-escape-sequences="false" display-tooltip-when-elided="false" class="ingame-label" />
+        <ui:Label tabindex="-1" text="Bonus targets:" parse-escape-sequences="false" display-tooltip-when-elided="false" class="ingame-label" />
         <ui:ListView name="TaskListView" selection-type="None" virtualization-method="DynamicHeight" focusable="false" style="align-items: flex-start;" />
     </ui:VisualElement>
     <ui:VisualElement name="EndScreenOverlay" style="flex-grow: 1; color: rgb(255, 255, 255); -unity-font-style: bold; align-items: center; justify-content: space-around; align-self: center; display: flex; visibility: visible; position: absolute; top: 40%;">
