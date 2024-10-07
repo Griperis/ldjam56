@@ -50,15 +50,15 @@ public class ShittableObject : MonoBehaviour
     {
         if (collision.collider.CompareTag("PigeonShit"))
         {
-            HandleHit();
+            HandleHit(collision.collider);
         }
     }
 
-    private void HandleHit() 
+    private void HandleHit(Collider collider) 
     {
         tasker.ShittableObjectHit(this);
         scoreManager.AddScore(score);
-        FloatingTextManager.CreateFloatingText(transform, $"+{score}");
+        FloatingTextManager.CreateFloatingText(collider.transform, $"+{score}");
 
         //TODO: Handle animations, sounds and shit here
     }
