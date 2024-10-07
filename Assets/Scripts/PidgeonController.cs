@@ -48,6 +48,8 @@ public class PidgeonController : MonoBehaviour
         {
             Debug.LogError("No shit object was assigned!");
         }
+
+        SelectRandomSpawn();
     }
 
     private void OnCollisionEnter(Collision collision)
@@ -109,5 +111,22 @@ public class PidgeonController : MonoBehaviour
         AudioManager.PlayAudioClip(hitSound, transform, 0.75f);
         gameManager.FinishGame();
         collisionWarning.gameObject.SetActive(false);
+    }
+
+    private void SelectRandomSpawn() 
+    {
+        var spawn_points = GameObject.FindGameObjectsWithTag("SpawnPoint");
+
+        if (spawn_points.Length > 0)
+        {
+            var rand_index = Random.Range(0, spawn_points.Length);
+            Vector3 spawn_position;
+            Quaternion spawn_rotation;
+
+            spawn_points[rand_index].transform.GetPositionAndRotation(out spawn_position, out spawn_rotation);
+
+            gameObject.transform.SetPositionAndRotation(spawn_position, spawn_rotation);
+        }
+    
     }
 }
