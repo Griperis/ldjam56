@@ -50,8 +50,7 @@ public abstract class Task
 
         foreach (var target in targets)
         {
-            target.ToggleOutline(true);
-            target.SetOutlineColor(color);
+            target.Highlight(color);
         }
     }
 
@@ -83,7 +82,7 @@ public abstract class Task
     {
         foreach (var target in targets)
         {
-            target.ToggleOutline(false);
+            target.DisableHighlight();
         }
         targets.Clear();
     }
@@ -93,7 +92,7 @@ public abstract class Task
     {
         targets.Remove(target);
         progress++;
-        target.ToggleOutline(false);
+        target.DisableHighlight();
     }
 }
 

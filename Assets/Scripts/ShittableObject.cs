@@ -10,15 +10,18 @@ public class ShittableObject : MonoBehaviour
     Outline outline;
     Tasker tasker;
 
-    public void ToggleOutline(bool value)
+    public void Highlight(Color color)
     {
-        outline.enabled = value;
+        outline.enabled = true;
         outline.OutlineMode = Outline.Mode.OutlineVisible;
+        outline.OutlineColor = color;
+        outline.OutlineWidth = 3.0f;
     }
 
-    public void SetOutlineColor(Color color)
+    public void DisableHighlight()
     {
-        outline.OutlineColor = color;
+        outline.OutlineColor = Color.white;
+        outline.OutlineWidth = 1.0f;
     }
 
     private void Awake()
@@ -42,8 +45,7 @@ public class ShittableObject : MonoBehaviour
 
         }
 
-        ToggleOutline(false);
-
+        DisableHighlight();
     }
 
     private void OnCollisionEnter(Collision collision)
