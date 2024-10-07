@@ -63,9 +63,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   inGameUi: {fileID: 3550787516883883814}
-  scoreManager: {fileID: 0}
-  gameTimeLimit: 60
-  gameTimeLowWarning: 10
+  scoreManager: {fileID: 1243523760587238000}
+  gameTimeLimit: 120
+  gameTimeLowWarning: 15
 --- !u!114 &4569389695214051840
 MonoBehaviour:
   m_ObjectHideFlags: 0
