@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Rendering.UI;
 using UnityEngine.SceneManagement;
 
 public enum GameState
@@ -14,11 +15,19 @@ public class GameManager : MonoBehaviour
     public SimpleRuntimeUI inGameUi;
 
     public ScoreManager scoreManager;
+
+
+
     private GameState gameState;
 
     public float gameTimeLimit = 60.0f;
     public float gameTimeLowWarning = 10.0f;
 
+    [Header("Audio")]
+    public AudioSource tickTockAudioSource;
+    [Range(0.0f, 1.0f)]
+    public float tickTockStart = 0.5f;
+    
     float elapsedTime = 0.0f;
     bool timeLowSet = false;
 
@@ -56,6 +65,11 @@ public class GameManager : MonoBehaviour
             {
                 WinGame();
             }
+        }
+        float gameProgress = elapsedTime / gameTimeLimit;
+        if (gameProgress > tickTockStart)
+        {
+            tickTockAudioSource.volume = (gameProgress - tickTockStart) * 1.0f / (1.0f - tickTockStart);
         }
     }
 
