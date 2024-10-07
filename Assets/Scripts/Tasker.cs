@@ -1,3 +1,4 @@
+using JetBrains.Annotations;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,19 +12,14 @@ using UnityEngine.SocialPlatforms.Impl;
  * - Shit X times on AssetName - TODO
  * - Shit X times on Any Asset
 */
-public class Task
-{
-    public string Name {
-        get {
-            return $"{targetName} {progress}/{total}";
-        }
-    }
 
-    public int Score
+public abstract class Task
+{
+    virtual public string Name
     {
         get
         {
-            return Mathf.RoundToInt(scoreModifier * gatheredScore);
+            return $"{targetName} {progress}/{total} (+{awardScore})";
         }
     }
 
@@ -32,29 +28,35 @@ public class Task
     // List of ACTIVE targets, hit targets get remvoed
     public List<ShittableObject> targets;
 
+    // Precomputed value at the start of the task how much score will completing the task add
+    public int awardScore = 0;
     // This assumess the targets are from a same batch
     // e. g. Ambulance(s), Yellow Car(s), ...
-    private string targetName;
-    private int progress = 0;
-    private int total = 0;
-    private float scoreModifier = 2.0f;
-    private int gatheredScore = 0;
-
+    protected string targetName;
+    protected int progress = 0;
+    protected int total = 0;
+    protected float scoreModifier = 5.0f;
 
     public Task(List<ShittableObject> targets, Color color)
     {
         this.targets = targets;
         this.color = color;
+        awardScore = CalculateAwardScore();
 
         Assert.IsTrue(targets.Count > 0);
         targetName = Tasker.GetObjectSoleName(targets[0]);
         total = targets.Count;
-        
-        foreach (var target in targets) {
+
+        foreach (var target in targets)
+        {
             target.ToggleOutline(true);
             target.SetOutlineColor(color);
         }
     }
+
+    abstract public bool IsCompleted();
+
+    abstract public int CalculateAwardScore();
 
     public bool IsObjectRelevant(ShittableObject target)
     {
@@ -85,37 +87,80 @@ public class Task
         targets.Clear();
     }
 
-    public bool IsCompleted()
-    {
-        return !targets.Any();
-    }
-
     // Completes target 'target' from this Task
     private void CompleteTarget(ShittableObject target)
     {
         targets.Remove(target);
         progress++;
-        gatheredScore += target.score;
         target.ToggleOutline(false);
+    }
+}
+
+public class HitSpecificTask : Task
+{
+    public HitSpecificTask(List<ShittableObject> targets, Color color) : base(targets, color) { }
+
+    override public bool IsCompleted()
+    {
+        return !targets.Any();
+    }
+
+    public override int CalculateAwardScore()
+    {
+        return Mathf.RoundToInt(scoreModifier * targets.Count * targets[0].score);
+    }
+}
+
+public class HitAnyTask : Task
+{
+    override public string Name
+    {
+        get
+        {
+            return $"Any {targetName} {progress}/{total} (+{awardScore})";
+        }
+    }
+
+    private int hitCount = 0;
+
+    public HitAnyTask(List<ShittableObject> targets, int total, Color color) : base(targets, color)
+    {
+        this.total = total;
+        awardScore = CalculateAwardScore();
+        scoreModifier = 1.0f;
+    }
+
+    override public bool IsCompleted()
+    {
+        return progress >= total;
+    }
+
+    public override int CalculateAwardScore()
+    {
+        return Mathf.RoundToInt(scoreModifier * total * targets[0].score);
     }
 }
 
 
 public class Tasker : MonoBehaviour
 {
-    public int maxConcurrentTasks = 3;
-    public int maxObjectsInTask = 3;
+    [HideInInspector]
     public int tasksCompleted = 0;
 
-    
+    [Header("Tasker Configuration")]
+    public int maxConcurrentTasks = 3;
+    public int maxObjectsInTask = 3;
 
-    public List<Task> tasks = new List<Task>();
+    [Header("Hit Any Tasks")]
+    public float hitAnyTaskCountModifier = 0.5f;
 
     [Header("Audio")]
     public AudioClip taskCompletedClip;
     
+    public List<Task> tasks = new List<Task>();
+    
     private Dictionary<string, List<ShittableObject>> shittableObjsByName = new Dictionary<string, List<ShittableObject>>();
-
+    
     private ScoreManager scoreManager;
     private SimpleRuntimeUI inGameUi;
 
@@ -178,8 +223,18 @@ public class Tasker : MonoBehaviour
             Debug.Log("No shittable objects found in current scene!");
             return;
         }
-
-        var task = new Task(GetNewTaskTargets(), GetTaskColor());
+        // Shouldn't this be deterministic?
+        var randInt = Random.Range(0, 2);
+        Task task = null;
+        if (randInt == 0)
+        {
+            task = new HitSpecificTask(GetNewTaskTargets(), GetTaskColor());
+        }
+        else if (randInt == 1)
+        {
+            var taskTargets = GetNewTaskTargets(true);
+            task = new HitAnyTask(taskTargets, Mathf.Clamp(Mathf.RoundToInt(taskTargets.Count * hitAnyTaskCountModifier), 1, maxObjectsInTask), GetTaskColor());
+        }
         tasks.Add(task);
         TaskAdded(task);
         tasksCreated++;
@@ -246,8 +301,8 @@ public class Tasker : MonoBehaviour
     {
         Debug.Log($"Completed task {task.Name}");
         tasksCompleted++;
-        scoreManager.AddScore(task.Score);
-        FloatingTextManager.CreateFloatingText(lastShittableObject.transform, $"+{task.Score} task", outlineColor: task.color);
+        scoreManager.AddScore(task.awardScore);
+        FloatingTextManager.CreateFloatingText(lastShittableObject.transform, $"+{task.awardScore}", outlineColor: task.color);
         GenerateNewTask();
         AudioManager.PlayAudioClip(taskCompletedClip, lastShittableObject.transform, 0.6f);
     }
@@ -258,7 +313,7 @@ public class Tasker : MonoBehaviour
         inGameUi.UpdateTasks(tasks);
     }
 
-    private List<ShittableObject> GetNewTaskTargets()
+    private List<ShittableObject> GetNewTaskTargets(bool allObjectsFromBatch = false)
     {
         var targetsInTasks = GetTargetsInTasks();
         
@@ -282,8 +337,12 @@ public class Tasker : MonoBehaviour
         }
         // Get a list of objects from random key (random type of asset)
         var allObjs = new List<ShittableObject>(adjustedMap.ElementAt(Random.Range(0, adjustedMap.Count)).Value);
+        if (allObjectsFromBatch)
+        {
+            return allObjs;
+        }
+        
         int count = Random.Range(1, Mathf.Min(maxObjectsInTask + 1, allObjs.Count));
-
         var pickedObjs = new List<ShittableObject>(count);
         while (count > 0)
         {
