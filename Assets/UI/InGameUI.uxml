@@ -46,4 +46,5 @@
             <ui:Button text="MENU" parse-escape-sequences="true" display-tooltip-when-elided="true" name="WinMenu" class="overlay-button" style="margin-left: 48px;" />
         </ui:VisualElement>
     </ui:VisualElement>
+    <ui:ProgressBar value="0" title="Charge" name="Charge" high-value="1" style="flex-direction: column; justify-content: center; align-items: stretch; align-self: stretch; bottom: 20px; position: absolute; right: 50%; width: 184px; height: 51px; background-color: rgba(255, 255, 255, 0); max-width: 200px; min-height: 13px; font-size: 36px; color: rgb(255, 255, 255); padding-top: 0; padding-right: 0; padding-bottom: 0; padding-left: 0; margin-top: 0; margin-right: 0; margin-bottom: 0; margin-left: 0; -unity-background-image-tint-color: rgb(255, 255, 255); flex-basis: auto; flex-grow: 0;" />
 </ui:UXML>

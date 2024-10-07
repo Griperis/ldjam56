@@ -20,6 +20,8 @@ public class SimpleRuntimeUI : MonoBehaviour
     private Button pauseMenuButton;
     private Button pauseContinueButton;
 
+    private ProgressBar chargeProgress;
+
     private TextField PlayerName;
 
     private LeaderboardListViewController leaderboardController;
@@ -62,6 +64,8 @@ public class SimpleRuntimeUI : MonoBehaviour
         submitScoreButton = uiDocument.rootVisualElement.Q<Button>("SubmitScoreButton");
         pauseMenuButton = uiDocument.rootVisualElement.Q<Button>("PauseMenu");
         pauseContinueButton = uiDocument.rootVisualElement.Q<Button>("PauseContinue");
+        chargeProgress = uiDocument.rootVisualElement.Q<ProgressBar>("Charge");
+        chargeProgress.visible = false;
 
         buttonAudio.AddButtonSounds(uiDocument);
 
@@ -189,4 +193,20 @@ public class SimpleRuntimeUI : MonoBehaviour
             taskViewController.UpdateTasks(inData);
         }
     }
+
+    public void SetChargeProgress(float inProgress)
+    {
+        if (inProgress > 0)
+        {
+            chargeProgress.visible = true;
+        }
+        chargeProgress.value = inProgress;
+    }
+
+    public void DisableChargeProgress()
+    {
+        chargeProgress.visible = false;
+    }
+
+
 }

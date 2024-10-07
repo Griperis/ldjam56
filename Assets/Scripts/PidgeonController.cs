@@ -7,10 +7,14 @@ public class PidgeonController : MonoBehaviour
     public float shitCooldown = 1.0f;
     public float shitForce = 100.0f;
 
+    [Header("Charged Shit")]
+    public float maxShitCharge = 5.0f;
+    public float chargedShitMultiplier = 1.5f;
+    private float currentShitChargeTime = 0.0f;
+
     public GameObject shitObject;
     public Transform shitOrigin;
     public CollisionWarning collisionWarning;
-
 
     public Animator animator;
 
@@ -36,12 +40,14 @@ public class PidgeonController : MonoBehaviour
 
     private Rigidbody rb;
     private GameManager gameManager;
+    private SimpleRuntimeUI inGameUi;
     private GameObject mesh;
 
     private void Awake()
     {
         rb = GetComponent<Rigidbody>();
         gameManager = FindObjectOfType<GameManager>();
+        inGameUi = FindObjectOfType<SimpleRuntimeUI>();
         mesh = animator.gameObject.transform.parent.gameObject;
         isAlive = true;
         if (shitObject == null)
@@ -63,11 +69,17 @@ public class PidgeonController : MonoBehaviour
     {
         if (!isAlive) return;
 
-        yaw = GetSteeringInput();
-        if (GetShitInput() && CanShit())
+        if (GetShitChargeInput())
+        {
+            currentShitChargeTime += Time.deltaTime;
+            inGameUi.SetChargeProgress(GetNormalizedShitCharge());
+        }
+        if (IsShitInputReleased() && CanShit())
         {
             Shit();
         }
+
+        yaw = GetSteeringInput();
         // TODO: Flapping speed can be based on actual speed
         animator.SetFloat("flappingSpeed", 1.5f);
         animator.SetBool("steering", Mathf.Abs(rb.angularVelocity.y) > 0.5f);
@@ -91,14 +103,23 @@ public class PidgeonController : MonoBehaviour
         var instance = Instantiate(shitObject);
         instance.transform.position = shitOrigin.position;
         instance.GetComponent<Rigidbody>().AddForce(-transform.up * shitForce);
+        
+        var pidgeonShit = instance.GetComponent<PidgeonShit>();
+        var normalizedShitCharge = GetNormalizedShitCharge();
+        pidgeonShit.Modify(currentShitChargeTime * chargedShitMultiplier, normalizedShitCharge);
+
+        currentShitChargeTime = 0.0f;
         lastShit = Time.time;
-        AudioManager.PlayAudioClip(shitAudio, transform, 0.5f);
+        inGameUi.DisableChargeProgress();
+
+        AudioManager.PlayAudioClip(shitAudio, transform, 0.5f + normalizedShitCharge * 0.25f);
     }
     private bool CanShit()
     {
         //Debug.Log($"lastShit: {lastShit}; nextShit: {lastShit + shitCooldown}; time: {Time.time}");
-        return lastShit + shitCooldown < Time.time;
+        return lastShit + shitCooldown < Time.time || currentShitChargeTime > shitCooldown;
     }
+
     private void Die()
     {
         // already dead
@@ -148,18 +169,28 @@ public class PidgeonController : MonoBehaviour
         else return 0.0f;
     }
 
-    private bool GetShitInput()
+    private bool IsShitInputReleased()
+    {
+        return Input.GetKeyUp(KeyCode.Space);
+    }
+
+    private bool GetShitChargeInput()
     {
         // We prefer desktop input, but try to get touches as fallback
-        var keyDown = Input.GetKeyDown(KeyCode.Space);
-        if (keyDown) return keyDown;
+        var keyDown = Input.GetKey(KeyCode.Space);
+        return keyDown;
 
-        var touched = false;
-        if (Input.touchCount > 0)
-        {
-            Touch touch = Input.GetTouch(0);
-            touched = touch.position.x < Screen.width * 2.0f / 3.0f && touch.position.x > Screen.width / 3.0f;
-        }
-        return touched;
+        //var touched = false;
+        //if (Input.touchCount > 0)
+        //{
+        //    Touch touch = Input.GetTouch(0);
+        //    touched = touch.position.x < Screen.width * 2.0f / 3.0f && touch.position.x > Screen.width / 3.0f;
+        //}
+        //return touched;
+    }
+
+    private float GetNormalizedShitCharge()
+    {
+        return currentShitChargeTime / maxShitCharge;
     }
 }

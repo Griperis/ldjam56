@@ -377,6 +377,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   shitCooldown: 0.1
   shitForce: 800
+  maxShitCharge: 2
   shitObject: {fileID: 3309167901627036857, guid: 985b27a5eb2807f468e8757b94c7517d, type: 3}
   shitOrigin: {fileID: 7831429195144221124}
   collisionWarning: {fileID: 4949486412166045957}

@@ -146,11 +146,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cc6666ad5f7265e4984d44424df057d0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  decalObject: {fileID: 1095338602909259977, guid: 19670edaac464d64b8a66935b9e28018, type: 3}
+  decalObject: {fileID: 477467097053148742, guid: 19670edaac464d64b8a66935b9e28018, type: 3}
   minRandomScale: 1
   maxRandomScale: 3
-  minRandomRotation: -5
-  maxRandomRotation: 5
+  minRandomRotation: -45
+  maxRandomRotation: 45
+  sizeModifier: 1
+  normalizedShitCharge: 0
   hitSounds:
   - {fileID: 8300000, guid: 6defcd2653343334bb027824fe0bc5eb, type: 3}
   - {fileID: 8300000, guid: b6ffd3db1c49fb8409ed37c01defa4c7, type: 3}
