@@ -63,8 +63,8 @@ public class PidgeonController : MonoBehaviour
     {
         if (!isAlive) return;
 
-        yaw = Input.GetAxis("Horizontal");
-        if (Input.GetKeyDown(KeyCode.Space) && CanShit())
+        yaw = GetSteeringInput();
+        if (GetShitInput() && CanShit())
         {
             Shit();
         }
@@ -129,5 +129,37 @@ public class PidgeonController : MonoBehaviour
             gameObject.transform.SetPositionAndRotation(spawn_position, spawn_rotation);
         }
     
+    }
+
+    private float GetSteeringInput()
+    {
+        // We prefer desktop input, but try to get touches as fallback
+        var axis = Input.GetAxis("Horizontal");
+        if (!Mathf.Approximately(axis, 0.0f))
+        {
+            return axis;
+        }
+
+        if (Input.touchCount == 0) return 0.0f;
+
+        Touch touch = Input.GetTouch(0);
+        if (touch.position.x > Screen.width * 2.0f / 3.0f) return 1.0f;
+        else if (touch.position.x < Screen.width / 3.0f) return -1.0f;
+        else return 0.0f;
+    }
+
+    private bool GetShitInput()
+    {
+        // We prefer desktop input, but try to get touches as fallback
+        var keyDown = Input.GetKeyDown(KeyCode.Space);
+        if (keyDown) return keyDown;
+
+        var touched = false;
+        if (Input.touchCount > 0)
+        {
+            Touch touch = Input.GetTouch(0);
+            touched = touch.position.x < Screen.width * 2.0f / 3.0f && touch.position.x > Screen.width / 3.0f;
+        }
+        return touched;
     }
 }
