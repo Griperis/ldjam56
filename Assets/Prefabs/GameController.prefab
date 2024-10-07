@@ -63,6 +63,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   inGameUi: {fileID: 3550787516883883814}
+  scoreManager: {fileID: 0}
   gameTimeLimit: 60
   gameTimeLowWarning: 10
 --- !u!114 &4569389695214051840
@@ -77,9 +78,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 016d682daa144f1468f9c7a25f17e7fa, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxConcurrentTasks: 3
-  maxObjectsInTask: 3
   tasksCompleted: 0
+  maxConcurrentTasks: 3
+  hitSelectedMaxObjects: 3
+  hitAnyMaxObjects: 7
+  hitAnyMinObjectsIfApplicable: 3
   taskCompletedClip: {fileID: 8300000, guid: 19eb28ccee8e26b40b309698e583bec8, type: 3}
 --- !u!114 &8584430481410775972
 MonoBehaviour:

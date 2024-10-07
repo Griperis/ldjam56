@@ -121,8 +121,6 @@ public class HitAnyTask : Task
         }
     }
 
-    private int hitCount = 0;
-
     public HitAnyTask(List<ShittableObject> targets, int total, Color color) : base(targets, color)
     {
         this.total = total;
@@ -149,10 +147,13 @@ public class Tasker : MonoBehaviour
 
     [Header("Tasker Configuration")]
     public int maxConcurrentTasks = 3;
-    public int maxObjectsInTask = 3;
+
+    [Header("Hit Selected Task")]
+    public int hitSelectedMaxObjects = 3;
 
     [Header("Hit Any Tasks")]
-    public float hitAnyTaskCountModifier = 0.5f;
+    public int hitAnyMaxObjects = 7;
+    public int hitAnyMinObjectsIfApplicable = 3;
 
     [Header("Audio")]
     public AudioClip taskCompletedClip;
@@ -233,7 +234,14 @@ public class Tasker : MonoBehaviour
         else if (randInt == 1)
         {
             var taskTargets = GetNewTaskTargets(true);
-            task = new HitAnyTask(taskTargets, Mathf.Clamp(Mathf.RoundToInt(taskTargets.Count * hitAnyTaskCountModifier), 1, maxObjectsInTask), GetTaskColor());
+            task = new HitAnyTask(
+                taskTargets,
+                Mathf.Clamp(
+                    taskTargets.Count,
+                    Mathf.Min(taskTargets.Count, hitAnyMinObjectsIfApplicable),
+                    hitAnyMaxObjects),
+                GetTaskColor()
+            );
         }
         tasks.Add(task);
         TaskAdded(task);
@@ -342,7 +350,7 @@ public class Tasker : MonoBehaviour
             return allObjs;
         }
         
-        int count = Random.Range(1, Mathf.Min(maxObjectsInTask + 1, allObjs.Count));
+        int count = Random.Range(1, Mathf.Min(hitSelectedMaxObjects + 1, allObjs.Count));
         var pickedObjs = new List<ShittableObject>(count);
         while (count > 0)
         {
