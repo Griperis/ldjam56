@@ -147,10 +147,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   decalObject: {fileID: 477467097053148742, guid: 19670edaac464d64b8a66935b9e28018, type: 3}
-  minRandomScale: 1
-  maxRandomScale: 3
-  minRandomRotation: -45
-  maxRandomRotation: 45
+  minRandomScale: 0.5
+  maxRandomScale: 1
+  minRandomRotation: 0
+  maxRandomRotation: 360
   sizeModifier: 1
   normalizedShitCharge: 0
   hitSounds:
