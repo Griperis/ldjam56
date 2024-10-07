@@ -1,0 +1,4 @@
+Sounds - Royalty Free https://pixabay.com/service/license-summary/
+SimplePolyCity - Unity Asset Store License - https://assetstore.unity.com/packages/3d/environments/simplepoly-city-low-poly-assets-58899#asset_quality
+QuickOutline - Unity Asset Store License - https://assetstore.unity.com/packages/tools/particles-effects/quick-outline-115488
+Input Promts - CC0 - https://kenney.nl/assets/input-prompts
