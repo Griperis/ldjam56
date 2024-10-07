@@ -35,12 +35,13 @@ public abstract class Task
     protected string targetName;
     protected int progress = 0;
     protected int total = 0;
-    protected float scoreModifier = 5.0f;
+    protected float scoreModifier;
 
-    public Task(List<ShittableObject> targets, Color color)
+    public Task(List<ShittableObject> targets, Color color, float scoreModifier)
     {
         this.targets = targets;
         this.color = color;
+        this.scoreModifier = scoreModifier;
         awardScore = CalculateAwardScore();
 
         Assert.IsTrue(targets.Count > 0);
@@ -98,7 +99,7 @@ public abstract class Task
 
 public class HitSpecificTask : Task
 {
-    public HitSpecificTask(List<ShittableObject> targets, Color color) : base(targets, color) { }
+    public HitSpecificTask(List<ShittableObject> targets, Color color) : base(targets, color, GetRarityScoreModifier(targets.Count)) { }
 
     override public bool IsCompleted()
     {
@@ -108,6 +109,11 @@ public class HitSpecificTask : Task
     public override int CalculateAwardScore()
     {
         return Mathf.RoundToInt(scoreModifier * targets.Count * targets[0].score);
+    }
+
+    public static float GetRarityScoreModifier(int count)
+    {
+        return 5.0f * Mathf.Max(1 / (0.1f * count * count), 1.0f); 
     }
 }
 
@@ -121,11 +127,10 @@ public class HitAnyTask : Task
         }
     }
 
-    public HitAnyTask(List<ShittableObject> targets, int total, Color color) : base(targets, color)
+    public HitAnyTask(List<ShittableObject> targets, int total, Color color) : base(targets, color, 2.0f)
     {
         this.total = total;
         awardScore = CalculateAwardScore();
-        scoreModifier = 1.0f;
     }
 
     override public bool IsCompleted()
@@ -234,14 +239,24 @@ public class Tasker : MonoBehaviour
         else if (randInt == 1)
         {
             var taskTargets = GetNewTaskTargets(true);
-            task = new HitAnyTask(
-                taskTargets,
-                Mathf.Clamp(
-                    taskTargets.Count,
-                    Mathf.Min(taskTargets.Count, hitAnyMinObjectsIfApplicable),
-                    hitAnyMaxObjects),
-                GetTaskColor()
-            );
+            // Degrade the task to "HitSpecificTask" if there are only less than X targets to
+            // give the player larger score
+            if (taskTargets.Count <= 2)
+            {
+                // Rare objects get more score
+                task = new HitSpecificTask(taskTargets, GetTaskColor());
+            }
+            else
+            {
+                task = new HitAnyTask(
+                    taskTargets,
+                    Mathf.Clamp(
+                        taskTargets.Count,
+                        Mathf.Min(taskTargets.Count, hitAnyMinObjectsIfApplicable),
+                        hitAnyMaxObjects),
+                    GetTaskColor()
+                );
+            }
         }
         tasks.Add(task);
         TaskAdded(task);
