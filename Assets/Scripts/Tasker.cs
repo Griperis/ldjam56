@@ -378,7 +378,7 @@ public class Tasker : MonoBehaviour
         Debug.Log($"Completed task {task.Name}");
         tasksCompleted++;
         scoreManager.AddScore(task.awardScore);
-        FloatingTextManager.CreateFloatingText(lastShittableObject.transform, $"+{task.awardScore}", outlineColor: task.color);
+        FloatingTextManager.CreateFloatingText(lastShittableObject.transform.position, $"+{task.awardScore}", outlineColor: task.color);
         GenerateNewTask();
         AudioManager.PlayAudioClip(taskCompletedClip, lastShittableObject.transform, 0.6f);
     }

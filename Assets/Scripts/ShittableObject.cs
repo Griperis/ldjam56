@@ -52,16 +52,17 @@ public class ShittableObject : MonoBehaviour
     {
         if (collision.collider.CompareTag("PigeonShit"))
         {
-            HandleHit(collision.collider.GetComponent<PidgeonShit>());
+            HandleHit(collision.collider.GetComponent<PidgeonShit>(), collision);
         }
     }
 
-    private void HandleHit(PidgeonShit collider) 
+    private void HandleHit(PidgeonShit pigeonShit, Collision collision) 
     {
-        var finalScore = Mathf.RoundToInt(collider.sizeModifier * score);
+        var finalScore = Mathf.Min(1, Mathf.RoundToInt(5.0f * pigeonShit.normalizedModifier * score));
         tasker.ShittableObjectHit(this);
         scoreManager.AddScore(finalScore);
-        FloatingTextManager.CreateFloatingText(collider.transform, $"+{finalScore}");
+        var firstContact = collision.GetContact(0);
+        FloatingTextManager.CreateFloatingText(firstContact.point, $"+{finalScore}");
 
         //TODO: Handle animations, sounds and shit here
     }
