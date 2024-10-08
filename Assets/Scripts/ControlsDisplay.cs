@@ -10,16 +10,10 @@ public class ControlsDisplay : MonoBehaviour
     public SpriteRenderer[] controls;
 
     private float fadeTimer;
-    private Color[] spriteColors;
 
     private void Start()
     {
         fadeTimer = fadeStartTime;
-        spriteColors = new Color[controls.Length];
-        for (int i = 0; i < controls.Length; ++i)
-        {
-            spriteColors[i] = controls[i].color;
-        }
     }
 
     private void Update()
@@ -37,11 +31,12 @@ public class ControlsDisplay : MonoBehaviour
 
     private void UpdateSpritesAlpha()
     {
-        for (int i = 0; i < spriteColors.Length; ++i)
+        for (int i = 0; i < controls.Length; ++i)
         {
-            spriteColors[i].a -= fadeSpeed * Time.deltaTime;
-            controls[i].color = spriteColors[i];
-            if (spriteColors[i].a <= 0)
+            //controls[i].a -= fadeSpeed * Time.deltaTime;
+            var currentColor = controls[i].color;
+            controls[i].color = new Color(currentColor.r, currentColor.g, currentColor.b, currentColor.a - Time.deltaTime * fadeSpeed); 
+            if (controls[i].color.a <= 0)
             {
                 Destroy(gameObject);
             }
@@ -59,19 +54,10 @@ public class ControlsDisplay : MonoBehaviour
         {
             TintAlpha(0);
         }
-        else
-        {
-            ResetAlpha(0);
-            ResetAlpha(1);
-        }
 
         if (Input.GetKey(KeyCode.Space))
         {
             TintAlpha(2);
-        }
-        else
-        {
-            ResetAlpha(2);
         }
     }
 
@@ -81,8 +67,4 @@ public class ControlsDisplay : MonoBehaviour
         controls[indicator].color = new Color(current.r, current.g, current.b, 0.5f);
     }
 
-    private void ResetAlpha(int indicator)
-    {
-        controls[indicator].color = controls[indicator].color;
-    }
 }
