@@ -58,7 +58,7 @@ public class ShittableObject : MonoBehaviour
 
     private void HandleHit(PidgeonShit pigeonShit, Collision collision) 
     {
-        var finalScore = Mathf.Min(1, Mathf.RoundToInt(5.0f * pigeonShit.normalizedModifier * score));
+        var finalScore = Mathf.RoundToInt(1.0f + pigeonShit.normalizedModifier * score);
         tasker.ShittableObjectHit(this);
         scoreManager.AddScore(finalScore);
         var firstContact = collision.GetContact(0);

@@ -102,8 +102,10 @@ public class PidgeonController : MonoBehaviour
     {
         var instance = Instantiate(shitObject);
         instance.transform.position = shitOrigin.position;
-        instance.GetComponent<Rigidbody>().AddForce(-transform.up * shitForce);
-        
+        var shitRb = instance.GetComponent<Rigidbody>();
+        shitRb.AddForce(-transform.up * shitForce);
+        shitRb.AddForce(transform.forward * 15.0f);
+
         var pidgeonShit = instance.GetComponent<PidgeonShit>();
         var normalizedShitCharge = GetNormalizedShitCharge();
         pidgeonShit.Modify(currentShitChargeTime * chargedShitMultiplier, normalizedShitCharge);

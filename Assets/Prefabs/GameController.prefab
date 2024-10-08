@@ -85,8 +85,10 @@ MonoBehaviour:
   tasksCompleted: 0
   maxConcurrentTasks: 3
   hitSelectedMaxObjects: 3
-  hitAnyMaxObjects: 7
-  hitAnyMinObjectsIfApplicable: 3
+  hitAnyMaxObjects: 5
+  hitAnyMinObjectsIfApplicable: 2
+  hitXTimesMinHitCount: 3
+  hitXTimesMaxHitCount: 5
   taskCompletedClip: {fileID: 8300000, guid: 19eb28ccee8e26b40b309698e583bec8, type: 3}
 --- !u!114 &8584430481410775972
 MonoBehaviour:
