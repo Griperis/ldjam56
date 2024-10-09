@@ -11,7 +11,7 @@ public class TaskItemController
         taskBullet = visualElement.Q<Label>("TaskBullet");
     }
 
-    public void SetData(Task inData)
+    public void SetData(GameTask inData)
     {
         taskNameLabel.text = inData.Name;
         taskBullet.style.color = inData.color;

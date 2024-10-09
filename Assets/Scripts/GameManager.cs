@@ -96,7 +96,7 @@ public class GameManager : MonoBehaviour
     public void WinGame() // Game won - timer finished
     {
         gameState = GameState.GameEnd;
-        inGameUi.OpenWinOverlay(scoreManager.GetScore(), LeaderboardManager.Instance.GetLeaderboardData());
+        inGameUi.OpenWinOverlay(scoreManager.GetScore());
         Time.timeScale = 0;
         tickTockAudioSource.volume = 0.0f;
         AudioManager.PlayAudioClip(winSound, transform, 0.5f);

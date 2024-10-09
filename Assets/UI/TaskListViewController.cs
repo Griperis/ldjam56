@@ -7,7 +7,7 @@ public class TaskListViewController
     VisualTreeAsset listEntryTemplate;
     ListView taskListView;
 
-    List<Task> data;
+    List<GameTask> data;
 
     public void InitializeTaskList(VisualElement root, VisualTreeAsset listElementTemplate)
     {
@@ -15,7 +15,7 @@ public class TaskListViewController
         taskListView = root.Q<ListView>("TaskListView");
     }
 
-    public void UpdateTasks(List<Task> inData)
+    public void UpdateTasks(List<GameTask> inData)
     {
         data = inData;
 

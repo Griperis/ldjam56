@@ -13,7 +13,7 @@ using UnityEngine.SocialPlatforms.Impl;
  * - Shit X times on Any Asset
 */
 
-public abstract class Task
+public abstract class GameTask
 {
     virtual public string Name
     {
@@ -37,7 +37,7 @@ public abstract class Task
     protected int total = 0;
     protected float scoreModifier;
 
-    public Task(List<ShittableObject> targets, Color color, float scoreModifier)
+    public GameTask(List<ShittableObject> targets, Color color, float scoreModifier)
     {
         this.targets = targets;
         this.color = color;
@@ -96,7 +96,7 @@ public abstract class Task
     }
 }
 
-public class HitSpecificTask : Task
+public class HitSpecificTask : GameTask
 {
     override public string Name
     {
@@ -124,7 +124,7 @@ public class HitSpecificTask : Task
     }
 }
 
-public class HitAnyTask : Task
+public class HitAnyTask : GameTask
 {
     override public string Name
     {
@@ -151,7 +151,7 @@ public class HitAnyTask : Task
     }
 }
 
-public class HitXTimesTask : Task
+public class HitXTimesTask : GameTask
 {
     override public string Name
     {
@@ -212,7 +212,7 @@ public class Tasker : MonoBehaviour
     [Header("Audio")]
     public AudioClip taskCompletedClip;
     
-    public List<Task> tasks = new List<Task>();
+    public List<GameTask> tasks = new List<GameTask>();
     
     private Dictionary<string, List<ShittableObject>> shittableObjsByName = new Dictionary<string, List<ShittableObject>>();
     
@@ -280,7 +280,7 @@ public class Tasker : MonoBehaviour
         }
         // Shouldn't this be deterministic?
         var randInt = Random.Range(0, 3);
-        Task task = null;
+        GameTask task = null;
         if (randInt == 0)
         {
             task = new HitSpecificTask(GetNewTaskTargets(), GetTaskColor());
@@ -337,7 +337,7 @@ public class Tasker : MonoBehaviour
     // Called from the outside, from the shittable object
     public void ShittableObjectHit(ShittableObject shittableObject)
     {
-        var tasksToRemove = new List<Task>();
+        var tasksToRemove = new List<GameTask>();
         foreach (var task in tasks)
         {
             if (task.ObjectHit(shittableObject))
@@ -373,7 +373,7 @@ public class Tasker : MonoBehaviour
         }
     }
 
-    private void TaskCompleted(Task task, ShittableObject lastShittableObject)
+    private void TaskCompleted(GameTask task, ShittableObject lastShittableObject)
     {
         Debug.Log($"Completed task {task.Name}");
         tasksCompleted++;
@@ -383,7 +383,7 @@ public class Tasker : MonoBehaviour
         AudioManager.PlayAudioClip(taskCompletedClip, lastShittableObject.transform, 0.6f);
     }
 
-    private void TaskAdded(Task task)
+    private void TaskAdded(GameTask task)
     {
         Debug.Log($"Added task {task.Name}");
         inGameUi.UpdateTasks(tasks);

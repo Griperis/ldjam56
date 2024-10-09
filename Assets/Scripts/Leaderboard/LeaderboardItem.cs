@@ -1,14 +1,19 @@
 using System;
-public class LeaderboardDataItem : IComparable
+
+public class LeaderboardItem : IComparable
 {
-    public LeaderboardDataItem(string inName, int inScore) 
+    public string playerName;
+    public int score;
+
+    public LeaderboardItem(string inName, int inScore) 
     {
         playerName = inName;
         score = inScore;
     }
+
     public int CompareTo(object obj)
     {
-        var other = obj as LeaderboardDataItem;
+        var other = obj as LeaderboardItem;
 
         if (this.score < other.score)
         {
@@ -22,7 +27,4 @@ public class LeaderboardDataItem : IComparable
 
         return 0;
     }
-
-    public string playerName;
-    public int score;
 }

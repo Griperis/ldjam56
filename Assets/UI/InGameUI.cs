@@ -1,6 +1,7 @@
 using UnityEngine;
 using UnityEngine.UIElements;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 
 public class SimpleRuntimeUI : MonoBehaviour
 {
@@ -12,6 +13,7 @@ public class SimpleRuntimeUI : MonoBehaviour
     private VisualElement winScreen;
     private VisualElement leaderboardScreen;
     private VisualElement pauseScreen;
+    private VisualElement leaderboardLoadingElement;
     private Button menuButton;
     private Button restartButton;
     private Button leaderboardMenuButton;
@@ -40,6 +42,16 @@ public class SimpleRuntimeUI : MonoBehaviour
         manager = FindObjectOfType<GameManager>();
     }
 
+    private void Update()
+    {
+        // This is horrible, but I am deadlocking the UI thread if using async in callbacks
+        if (LeaderboardManager.Instance.Dirty)
+        {
+            LeaderboardManager.Instance.ResetDirty();
+            LeaderboardLoaded(LeaderboardManager.Instance.LeaderboardData);
+        }
+    }
+
     //Add logic that interacts with the UI controls in the `OnEnable` methods
     private void OnEnable()
     {
@@ -53,6 +65,7 @@ public class SimpleRuntimeUI : MonoBehaviour
         endScreen = uiDocument.rootVisualElement.Q("EndScreenOverlay");
         winScreen = uiDocument.rootVisualElement.Q("WinScreenOverlay");
         leaderboardScreen = uiDocument.rootVisualElement.Q("LeaderboardScreenOverlay");
+        leaderboardLoadingElement = uiDocument.rootVisualElement.Q("LeaderboardLoading");
         pauseScreen = uiDocument.rootVisualElement.Q("PauseScreenOverlay");
 
         PlayerName = uiDocument.rootVisualElement.Q<TextField>("PlayerNameTextField");
@@ -66,6 +79,8 @@ public class SimpleRuntimeUI : MonoBehaviour
         pauseContinueButton = uiDocument.rootVisualElement.Q<Button>("PauseContinue");
         chargeProgress = uiDocument.rootVisualElement.Q<ProgressBar>("Charge");
         chargeProgress.visible = false;
+        leaderboardLoadingElement.visible = false;
+
 
         buttonAudio.AddButtonSounds(uiDocument);
 
@@ -99,24 +114,12 @@ public class SimpleRuntimeUI : MonoBehaviour
             TogglePauseScreenInternal(false);
         };
 
-        submitScoreButton.clicked += () =>
-        {
-            if (canSubmitScore) 
-            {
-                LeaderboardManager.Instance.SubmitScoreToLeaderboard(PlayerName.text, finalScoreCached);
-                
-                canSubmitScore = false;
-                submitScoreButton.SetEnabled(false);
-                winScreen.visible = false;
-                leaderboardScreen.visible = true;
-
-                UpdateLeaderboard(LeaderboardManager.Instance.GetLeaderboardData());
-            }
-        };
+        submitScoreButton.clicked += SubmitButtonClicked;
 
         leaderboardController = new LeaderboardListViewController();
-        taskViewController = new TaskListViewController();
+        leaderboardController.InitializeLeaderboardList(uiDocument.rootVisualElement, leaderboardListEntryTemplate);
 
+        taskViewController = new TaskListViewController();
         taskViewController.InitializeTaskList(GetComponent<UIDocument>().rootVisualElement, taskListEntryTemplate);
 
         HideAllOverlays();
@@ -146,7 +149,7 @@ public class SimpleRuntimeUI : MonoBehaviour
         Time.timeScale = toggle ? 0.0f : 1.0f;
     }
 
-    public void OpenWinOverlay(int inFinalScore, List<LeaderboardDataItem> inData)
+    public void OpenWinOverlay(int inFinalScore)
     {
         finalScoreCached = inFinalScore;
 
@@ -154,8 +157,6 @@ public class SimpleRuntimeUI : MonoBehaviour
         canSubmitScore = true;
         submitScoreButton.SetEnabled(true);
 
-        leaderboardController.InitializeLeaderboardList(GetComponent<UIDocument>().rootVisualElement, leaderboardListEntryTemplate);
-        leaderboardController.UpdateLeaderboard(inData);
         winOverlayscoreLabel.text = inFinalScore.ToString();
     }
 
@@ -179,14 +180,15 @@ public class SimpleRuntimeUI : MonoBehaviour
     {
         timeLabel.EnableInClassList("warning", inIsRemainingTimeLow);
     }
-    public void UpdateLeaderboard(List<LeaderboardDataItem> inData) 
+    public void LeaderboardLoaded(List<LeaderboardItem> inData) 
     {
+        leaderboardLoadingElement.visible = false;
         if (leaderboardController != null) 
         {
             leaderboardController.UpdateLeaderboard(inData);
         }
     }
-    public void UpdateTasks(List<Task> inData)
+    public void UpdateTasks(List<GameTask> inData)
     {
         if (taskViewController != null)
         {
@@ -208,5 +210,17 @@ public class SimpleRuntimeUI : MonoBehaviour
         chargeProgress.visible = false;
     }
 
+    private void SubmitButtonClicked()
+    {
+        if (canSubmitScore)
+        {
+            submitScoreButton.SetEnabled(false);
+            canSubmitScore = false;
+            winScreen.visible = false;
+            leaderboardScreen.visible = true;
+            leaderboardLoadingElement.visible = true;
+            LeaderboardManager.Instance.AddScoreAndFetch(finalScoreCached, PlayerName.text);
+        }
+    }
 
 }
