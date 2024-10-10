@@ -165,30 +165,50 @@ public class PidgeonController : MonoBehaviour
 
         if (Input.touchCount == 0) return 0.0f;
 
-        Touch touch = Input.GetTouch(0);
-        if (touch.position.x > Screen.width * 2.0f / 3.0f) return 1.0f;
-        else if (touch.position.x < Screen.width / 3.0f) return -1.0f;
-        else return 0.0f;
+        foreach (var touch in Input.touches)
+        {
+            if (touch.position.x > Screen.width * 2.0f / 3.0f) return 1.0f;
+            else if (touch.position.x < Screen.width / 3.0f) return -1.0f;
+        }
+        return 0.0f;
+
     }
 
     private bool IsShitInputReleased()
     {
-        return Input.GetKeyUp(KeyCode.Space);
+        bool keyUp = Input.GetKeyUp(KeyCode.Space);
+        bool anyTouch = false;
+
+        foreach (var touch in Input.touches)
+        {
+            if (touch.phase == TouchPhase.Ended && touch.position.x < Screen.width * 2.0f / 3.0f && touch.position.x > Screen.width / 3.0f)
+            {
+                anyTouch = true;
+                break;
+            }
+        }
+
+        return anyTouch || keyUp;
     }
 
     private bool GetShitChargeInput()
     {
         // We prefer desktop input, but try to get touches as fallback
         var keyDown = Input.GetKey(KeyCode.Space);
-        return keyDown;
 
-        //var touched = false;
-        //if (Input.touchCount > 0)
-        //{
-        //    Touch touch = Input.GetTouch(0);
-        //    touched = touch.position.x < Screen.width * 2.0f / 3.0f && touch.position.x > Screen.width / 3.0f;
-        //}
-        //return touched;
+        if (Input.touchCount == 0) return keyDown;
+
+        bool anyTouch = false;
+        foreach (var touch in Input.touches)
+        {
+            if ((touch.phase == TouchPhase.Began || touch.phase == TouchPhase.Stationary || touch.phase == TouchPhase.Moved) && touch.position.x < Screen.width * 2.0f / 3.0f && touch.position.x > Screen.width / 3.0f)
+            {
+                anyTouch = true;
+                break;
+            }
+        }
+        return anyTouch || keyDown;
+
     }
 
     private float GetNormalizedShitCharge()
