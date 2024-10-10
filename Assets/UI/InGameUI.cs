@@ -219,8 +219,7 @@ public class SimpleRuntimeUI : MonoBehaviour
             winScreen.visible = false;
             leaderboardScreen.visible = true;
             leaderboardLoadingElement.visible = true;
-            LeaderboardManager.Instance.AddScoreAndFetch(finalScoreCached, PlayerName.text);
+            LeaderboardManager.Instance.AddScoreAndFetchNearbyPlayersOnline(finalScoreCached, PlayerName.text);
         }
     }
-
 }
