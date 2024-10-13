@@ -1,72 +1,57 @@
 :root {
-    --primary_color: rgb(255, 164, 0);
-    --primary_color_light: rgb(255, 221, 158);
+    --primary_color: rgb(210, 174, 45);
+    --primary_color_light: rgb(219, 190, 87);
     --warning_color: rgb(145, 60, 54);
     --success_color: rgb(102, 133, 60);
     --disabled_color: rgb(112, 112, 112);
+    --dark_color: rgb(27, 27, 30);
+    --light_color: rgb(255, 255, 255);
+    --title_font_size: 69px;
+    --label_font_size: 48px;
+    --button_font_size: 48px;
     -unity-font: url("project://database/Assets/UI/FlyingBird-Yz9Ga.otf?fileID=12800000&guid=d080b99112a4d104084a8feca33888f1&type=3#FlyingBird-Yz9Ga");
     -unity-font-definition: initial;
-}
 
-.main-menu-button {
-    font-size: 69px;
-    -unity-font-style: bold;
-    color: rgb(255, 255, 255);
-    -unity-text-outline-width: 0;
-    -unity-text-align: upper-left;
-    background-color: rgba(255, 255, 255, 0);
-    border-left-color: rgb(255, 255, 255);
-    border-right-color: rgba(255, 255, 255, 0);
-    border-top-color: rgba(255, 255, 255, 0);
-    border-bottom-color: rgba(255, 255, 255, 0);
-    border-left-width: 10px;
-    border-top-width: -1px;
-    border-bottom-width: -1px;
-    padding-top: -2px;
-    margin-top: 16px;
-    padding-bottom: -2px;
-}
-
-.main-menu-button:hover {
-    border-left-color: var(--primary_color);
-    color: var(--primary_color_light);
+    color: var(--light_color);
 }
 
 .game-title {
     color: var(--primary_color);
     -unity-font-style: bold;
-    font-size: 69px;
+    font-size: var(--title_font_size);
 }
 
 .overlay-title {
-    font-size: 69px;
+    font-size: var(--title_font_size);
     color: var(--primary_color);
+    -unity-font-style: bold;
 }
 
-.overlay-button {
-    font-size: 48px;
-    background-color: rgba(0, 0, 0, 0);
-    border-left-color: rgba(0, 0, 0, 0);
-    border-right-color: rgba(0, 0, 0, 0);
-    border-top-color: rgba(0, 0, 0, 0);
-    border-bottom-color: rgba(0, 0, 0, 0);
-    overflow: visible;
+.button {
+    font-size: var(--button_font_size);
+    background-color: var(--primary_color);
+    -unity-font-style: bold;
+    border-radius: 8px;
+    padding-top: 16px;
+    border-width: -1px;
+    padding-right: 0;
+    padding-left: 0;
+    min-width: 256px;
 }
 
-.overlay-button:hover {
-    color: var(--primary_color_light);
+.button:hover {
+    background-color: var(--primary_color_light);
 }
 
-.overlay-button:disabled {
+.button:disabled {
     color: var(--disabled_color);
 }
 
 .ingame-label {
     right: 0;
     -unity-font-style: bold;
-    color: rgb(255, 255, 255);
     -unity-text-align: upper-left;
-    font-size: 48px;
+    font-size: var(--label_font_size);
 }
 
 .warning {
@@ -77,26 +62,27 @@
     color: var(--success_color);
 }
 
+.primary {
+    color: var(--primary_color);
+}
+
 .overlay-background {
     flex-grow: 1;
-    background-color: rgba(0, 0, 0, 0.9);
+    background-color: var(--dark_color);
     position: absolute;
     left: -32px;
-    top: -32px;
+    top: -48px;
     right: -32px;
-    bottom: -32px;
-    border-top-left-radius: 32px;
-    border-top-right-radius: 32px;
-    border-bottom-right-radius: 32px;
-    border-bottom-left-radius: 32px;
+    bottom: -48px;
+    border-radius: 16px;
 }
 
 .overlay-general-label {
-    font-size: 50px;
+    font-size: var(--label_font_size);
 }
 
 .overlay-text-field {
-    font-size: 50px;
+    font-size: var(--label_font_size);
     flex-direction: column;
     flex-grow: 0;
     flex-shrink: 0;
@@ -106,19 +92,17 @@
 }
 
 .overlay-text-field > #unity-text-input {
-    background-color: black;
+    background-color: var(--dark_color);
     border-width: 0;
     border-radius: 8px;
 }
 
 .leaderboard-item {
-    color: rgb(255, 255, 255);
-    font-size: 42px;
+    font-size: var(--label_font_size);
 }
 
 .task-item-label {
-    color: rgb(255, 255, 255);
-    font-size: 42px;
+    font-size: var(--label_font_size);
 }
 
 .unity-collection-view__item:hover {

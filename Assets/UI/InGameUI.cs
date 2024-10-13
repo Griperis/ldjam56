@@ -170,7 +170,7 @@ public class SimpleRuntimeUI : MonoBehaviour
 
     public void SetScore(int inScore)
     {
-        scoreLabel.text = "Score: " + inScore.ToString();
+        scoreLabel.text = inScore.ToString();
     }
     public void SetRemainingTimeSeconds(float inTimeLeft)
     {
