@@ -87,8 +87,8 @@
     flex-grow: 0;
     flex-shrink: 0;
 }
-
-.overlay-text-field > .unity-label {
+.unity-base-text-field__label {
+    color: var(--primary_color);
 }
 
 .overlay-text-field > #unity-text-input {
