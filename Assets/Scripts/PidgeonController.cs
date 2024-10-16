@@ -4,16 +4,6 @@ using UnityEngine;
 
 public class PidgeonController : MonoBehaviour
 {    
-    public float shitCooldown = 1.0f;
-    public float shitForce = 100.0f;
-
-    [Header("Charged Shit")]
-    public float maxShitCharge = 5.0f;
-    public float chargedShitMultiplier = 1.5f;
-    private float currentShitChargeTime = 0.0f;
-
-    public GameObject shitObject;
-    public Transform shitOrigin;
     public CollisionWarning collisionWarning;
 
     public Animator animator;
@@ -22,8 +12,7 @@ public class PidgeonController : MonoBehaviour
     public float maxThrust = 500f;
     public float responsivness = 10f;
 
-    [Header("Audio")]
-    public AudioClip shitAudio;
+
     public AudioClip hitSound;
 
     private float responseModifier
@@ -34,7 +23,6 @@ public class PidgeonController : MonoBehaviour
         }
     }
 
-    private float lastShit = 0.0f;
     private float yaw;
     private bool isAlive;
 
@@ -50,10 +38,6 @@ public class PidgeonController : MonoBehaviour
         inGameUi = FindObjectOfType<SimpleRuntimeUI>();
         mesh = animator.gameObject.transform.parent.gameObject;
         isAlive = true;
-        if (shitObject == null)
-        {
-            Debug.LogError("No shit object was assigned!");
-        }
 
         SelectRandomSpawn();
     }
@@ -69,15 +53,7 @@ public class PidgeonController : MonoBehaviour
     {
         if (!isAlive) return;
 
-        if (GetShitChargeInput())
-        {
-            currentShitChargeTime += Time.deltaTime;
-            inGameUi.SetChargeProgress(GetNormalizedShitCharge());
-        }
-        if (IsShitInputReleased() && CanShit())
-        {
-            Shit();
-        }
+   
 
         yaw = GetSteeringInput();
         // TODO: Flapping speed can be based on actual speed
@@ -96,30 +72,6 @@ public class PidgeonController : MonoBehaviour
 
         rb.AddForce(transform.forward * maxThrust);
         rb.AddTorque(transform.up * yaw * responseModifier);
-    }
-
-    private void Shit()
-    {
-        var instance = Instantiate(shitObject);
-        instance.transform.position = shitOrigin.position;
-        var shitRb = instance.GetComponent<Rigidbody>();
-        shitRb.AddForce(-transform.up * shitForce);
-        shitRb.AddForce(transform.forward * 15.0f);
-
-        var pidgeonShit = instance.GetComponent<PidgeonShit>();
-        var normalizedShitCharge = GetNormalizedShitCharge();
-        pidgeonShit.Modify(currentShitChargeTime * chargedShitMultiplier, normalizedShitCharge);
-
-        currentShitChargeTime = 0.0f;
-        lastShit = Time.time;
-        inGameUi.DisableChargeProgress();
-
-        AudioManager.PlayAudioClip(shitAudio, transform, 0.5f + normalizedShitCharge * 0.25f);
-    }
-    private bool CanShit()
-    {
-        //Debug.Log($"lastShit: {lastShit}; nextShit: {lastShit + shitCooldown}; time: {Time.time}");
-        return lastShit + shitCooldown < Time.time || currentShitChargeTime > shitCooldown;
     }
 
     private void Die()
@@ -172,47 +124,5 @@ public class PidgeonController : MonoBehaviour
         }
         return 0.0f;
 
-    }
-
-    private bool IsShitInputReleased()
-    {
-        bool keyUp = Input.GetKeyUp(KeyCode.Space);
-        bool anyTouch = false;
-
-        foreach (var touch in Input.touches)
-        {
-            if (touch.phase == TouchPhase.Ended && touch.position.x < Screen.width * 2.0f / 3.0f && touch.position.x > Screen.width / 3.0f)
-            {
-                anyTouch = true;
-                break;
-            }
-        }
-
-        return anyTouch || keyUp;
-    }
-
-    private bool GetShitChargeInput()
-    {
-        // We prefer desktop input, but try to get touches as fallback
-        var keyDown = Input.GetKey(KeyCode.Space);
-
-        if (Input.touchCount == 0) return keyDown;
-
-        bool anyTouch = false;
-        foreach (var touch in Input.touches)
-        {
-            if ((touch.phase == TouchPhase.Began || touch.phase == TouchPhase.Stationary || touch.phase == TouchPhase.Moved) && touch.position.x < Screen.width * 2.0f / 3.0f && touch.position.x > Screen.width / 3.0f)
-            {
-                anyTouch = true;
-                break;
-            }
-        }
-        return anyTouch || keyDown;
-
-    }
-
-    private float GetNormalizedShitCharge()
-    {
-        return currentShitChargeTime / maxShitCharge;
     }
 }

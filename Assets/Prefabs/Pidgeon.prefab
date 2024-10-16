@@ -334,6 +334,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6593684917869658716}
   - component: {fileID: 2367730258764517640}
+  - component: {fileID: 7834293930313338047}
   - component: {fileID: 7569191167076745521}
   - component: {fileID: 1563590468114685968}
   m_Layer: 3
@@ -375,17 +376,30 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 87078f5e90d48a94a959a99cb9694a01, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  shitCooldown: 0.1
-  shitForce: 800
-  maxShitCharge: 2
-  shitObject: {fileID: 3309167901627036857, guid: 985b27a5eb2807f468e8757b94c7517d, type: 3}
-  shitOrigin: {fileID: 7831429195144221124}
   collisionWarning: {fileID: 4949486412166045957}
   animator: {fileID: 5446015463719447317}
   maxThrust: 800
   responsivness: 30
-  shitAudio: {fileID: 8300000, guid: 3a7a49f9d4e699840913490dd2b31960, type: 3}
   hitSound: {fileID: 8300000, guid: 95330458b31dbf448967bf16d524a22c, type: 3}
+--- !u!114 &7834293930313338047
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8697763453007654878}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7afa3c2c0a137e84d8d30f935ca61c05, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  shitCooldown: 0.1
+  shitForce: 800
+  maxShitCharge: 2
+  chargedShitMultiplier: 1.5
+  shitObject: {fileID: 3309167901627036857, guid: 985b27a5eb2807f468e8757b94c7517d, type: 3}
+  shitOrigin: {fileID: 7831429195144221124}
+  shitAudio: {fileID: 8300000, guid: 3a7a49f9d4e699840913490dd2b31960, type: 3}
 --- !u!54 &7569191167076745521
 Rigidbody:
   m_ObjectHideFlags: 0
