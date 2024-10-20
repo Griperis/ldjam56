@@ -1,6 +1,6 @@
 :root {
-    --primary_color: rgb(210, 174, 45);
-    --primary_color_light: rgb(219, 190, 87);
+    --primary_color: rgb(255, 183, 0);
+    --primary_color_light: rgb(255, 200, 0);
     --warning_color: rgb(145, 60, 54);
     --success_color: rgb(102, 133, 60);
     --disabled_color: rgb(112, 112, 112);
@@ -11,7 +11,6 @@
     --button_font_size: 48px;
     -unity-font: url("project://database/Assets/UI/FlyingBird-Yz9Ga.otf?fileID=12800000&guid=d080b99112a4d104084a8feca33888f1&type=3#FlyingBird-Yz9Ga");
     -unity-font-definition: initial;
-
     color: var(--light_color);
 }
 
@@ -87,6 +86,7 @@
     flex-grow: 0;
     flex-shrink: 0;
 }
+
 .unity-base-text-field__label {
     color: var(--primary_color);
 }
