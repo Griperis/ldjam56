@@ -1,3 +1,4 @@
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UIElements;
 
@@ -15,10 +16,11 @@ public class LeaderboardItemController
     public void SetData(LeaderboardItem inData)
     {
         playerNameLabel.text = $"{inData.rank + 1} {inData.playerName}";
-        scoreLabel.text = inData.score.ToString();
+        scoreLabel.text = inData.score.ToString().Trim();
         if (inData.isCurrentPlayer)
         {
             scoreLabel.style.unityFontStyleAndWeight = FontStyle.Bold;
+            scoreLabel.text = $"<u>{inData.score.ToString().Trim()}</u>";
         }
         ApplyColorModifiers(inData);
     }
